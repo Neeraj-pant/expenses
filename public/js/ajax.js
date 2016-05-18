@@ -22,4 +22,10 @@ $(".delete-user").click(function(){
 });
 
 
+$(".delete-group").click(function(){
+	delete_id = $(this).attr('data-id');
+	$(".delete-group-id").val(delete_id);
+});
+
+
 

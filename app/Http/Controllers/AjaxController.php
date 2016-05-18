@@ -16,4 +16,10 @@ class AjaxController extends Controller
 		return $detail;
 	}
 
+
+	public function getUsers(){
+		$user = User::where('status', '1')->get();
+		return $user;
+	}
+
 }

@@ -49,8 +49,9 @@
                 <ul class="nav navbar-nav">
                     <li><a href="{{ url('/home') }}">Home</a></li>
                     <li><a href="{{ url('/add-user') }}">Add User</a></li>
-                    <li><a href="{{ url('/user-list') }}">Manage User</a></li>
+                    <li><a href="{{ url('/user-list') }}">Manage Users</a></li>
                     <li><a href="{{ url('/create-group') }}">Create Group</a></li>
+                    <li><a href="{{ url('/manage-group') }}">Manage Groups</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->
@@ -82,5 +83,6 @@
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
 
     <script src="js/ajax.js" type="text/javascript" charset="utf-8" async defer></script>
+    <script src="js/element.js" type="text/javascript" charset="utf-8" async defer></script>
 </body>
 </html>

@@ -24,6 +24,11 @@ class Authenticate
                 return redirect()->guest('login');
             }
         }
+        
+        if(Auth::user()->status !== 1){
+            flash_alert('User ID is Temperory Inactive', 'info');
+            return redirect('/');
+        }
 
         return $next($request);
     }

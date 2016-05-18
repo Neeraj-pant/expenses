@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\UserData;
 use App\UserReference;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Validator;
+use DB;
 
 class UserController extends Controller
 {
@@ -15,17 +17,26 @@ class UserController extends Controller
     	if($validator->fails()){
     		return redirect('add-user')->withErrors($validator)->withInput();
     	}
-    	$user = User::create([
-    		'name'=> $request->input('name'),
-    		'email'=> $request->input('email'),
-    		'password'=> bcrypt($request->input('password')),
-    		'status'=> $request->input('status'),
-    		'role'=> $request->input('role'),
-    	]);
-    	if($user){
-    		flash_alert('User Added Successfully', 'success');
-    		return redirect('user-list');
-    	}
+        DB::beginTransaction();
+            $user = User::create([
+        		'name'=> $request->input('name'),
+        		'email'=> $request->input('email'),
+        		'password'=> bcrypt($request->input('password')),
+        		'status'=> $request->input('status'),
+        		'role'=> $request->input('role'),
+        	]);          
+            if($user){
+                $res = UserData::create([ 'u_id' => $user->id]);		
+                DB::commit();
+                if($res){
+                    flash_alert('User Added Successfully', 'success');
+                    return redirect('user-list');
+                }
+                else{
+                    DB::rollBack();
+                }
+            }
+        DB::commit();
     	flash_alert('Failed To Add User', 'danger');
     	return redirect('add-user');
     }
@@ -51,7 +62,6 @@ class UserController extends Controller
     
     public function updateUserDetail(Request $request){
         $status = 0;
-        Auth::all();
         if($request->exists('status')){
             $status = 1;
         }
@@ -70,6 +80,8 @@ class UserController extends Controller
         }
         return redirect('user-list');
     }
+
+    
 
     public function deleteUser(Request $request){
         $id = $request->input('delete_id');
