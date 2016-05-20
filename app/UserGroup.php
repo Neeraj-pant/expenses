@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserGroup extends Model
 {
-    protected $fillabel = [
+    protected $fillable = [
     	'user_id',
     	'group_id',
     	'group_delete'

@@ -8,7 +8,6 @@ use App\Http\Requests;
 use App\User;
 use App\Group;
 use App\UserGroup;
-use App\GroupDelete;
 use Validator;
 use DB;
 
@@ -21,7 +20,8 @@ class GroupController extends Controller
 	}
 
 
-	public function saveGroup(Request $request){
+	public function saveGroup(Request $request)
+	{
 		$validator = Validator::make($request->all(), [
 			'name' 		=>	'required|max:255',
 		]);
@@ -33,7 +33,6 @@ class GroupController extends Controller
 			'name' => $request->input('name'),
 			'status' => '1',
 		]);
-		DB::commit();
 		if($group){
 			$i = 1;
 			while($request->exists('group_member_'.$i)){
@@ -44,7 +43,6 @@ class GroupController extends Controller
 					'group_id' => $g_id,
 					'group_delete' => 0,
 				]);
-				DB::commit();
 				if(!$group_up){
 					DB::rollBack();
 				}
@@ -52,6 +50,7 @@ class GroupController extends Controller
 			}
 		}
 		if($group_up){
+			DB::commit();
 			flash_alert('Group Created Successfully.', 'success');
 		}else{
 			flash_alert('Failed to create Group.', 'danger');
@@ -60,57 +59,57 @@ class GroupController extends Controller
 	}
 
 
-	public function groupList(){
-		$groups = Group::all()->where('status', 1)->groupBy('group_id');
-		$data = array();
-		$i = 0;
-		foreach ($groups as $group) {
-			if(!isset($data[$i]['user_name'])){
-				$data[$i]['user_name'] = '';
+	public function groupList()
+	{
+		$groups = Group::all()->where('status', 1)->toArray();
+		
+		foreach ($groups as $key => $group) 
+		{
+			$delete_request_user = UserGroup::where(['user_id' => Auth::user()->id, 'group_id' => $group['id']])->get(['group_delete'])->toArray();
+			if($delete_request_user)
+			{
+				$groups[$key]['active_user_delete'] = $delete_request_user[0]['group_delete'];
+			}else{
+				$groups[$key]['active_user_delete'] = false;
 			}
-			$data[$i]['delete_id'] = '';
-			$data[$i]['delete_request'] = 0;
-			foreach ($group as $items) {
-				$is_del = GroupDelete::where(['user_id' => Auth::user()->id, 'group_id' =>  $items->group_id])->count();
-				$is_requ = GroupDelete::where('group_id',  $items->group_id)->count();
-				if($is_del > 0){
-					$data[$i]['delete_id'] = 1;
-				}
-				if($is_requ){
-					$data[$i]['delete_request'] = $is_req;
-				}
-				$data[$i]['group_id'] = $items->group_id;
-				$data[$i]['name'] = $items->name;
-				$user = User::find($items->user_id);
-				$data[$i]['user_name'] .= ', '.$user->name;
+		
+			
+			$groups[$key]['other_user_delete'] = 0;
+			$delete_request_others = UserGroup::where('user_id', '<>', Auth::user()->id)->where('group_id', $group['id'])->get(['group_delete'])->toArray();
+
+			if($delete_request_others)
+			{
+				$groups[$key]['other_user_delete'] += $delete_request_others[0]['group_delete'];
+			}else{
+				$groups[$key]['other_user_delete'] = false;
 			}
-			$data[$i]['user_name'] = ltrim($data[$i]['user_name'], ', ');
-			$i++;
+
+			$groups[$key]['members'] = ''; 
+			$user_ids = UserGroup::where('group_id', $group['id'])->get(['user_id'])->toArray();
+			foreach ($user_ids as $u_id) {
+				$user_name = User::find($u_id['user_id']);
+				$groups[$key]['members'] .= $user_name['name'].', ';
+			}
+			$groups[$key]['members'] = rtrim($groups[$key]['members'], ', ');
 		}
-		return view('user.manageGroup', compact('data'));
+
+		return view('user.manageGroup', compact('groups'));
 	}
 
 
 	public function deleteGroup(Request $request){
-		$id = (int) $request->delete_group_id;
-		$res = GroupDelete::create([
-			'group_id' => $id,
-			'user_id' => Auth::user()->id
-		]);
-		$delete_count = GroupDelete::where('group_id', $id)->count();
-		$group_count = Group::where('group_id', $id)->count();
-		if($delete_count == $group_count){
-			$del = Group::where('group_id', $id)->update(['status' => 0]);
-			if($res){
+		$id = (int) $request->delete_group_id;  
+		$res = UserGroup::where(['group_id' => $id, 'user_id' => Auth::user()->id])->update(['group_delete'=> 1]);
+		$member_count = UserGroup::where('group_id', $id)->count();
+		$group_count = UserGroup::where(['group_id' => $id, 'group_delete' => 1])->count();
+		if($member_count == $group_count){
+			$del = Group::where('id', $id)->update(['status' => 0]);
+			if($del){
 				flash_alert('Group Deleted Successfully.', 'success');
-				return redirect('manage-group');
 			}
-		}
-		if($res){
-			flash_alert('Group Disabble Request Processed.', 'info');
-		}
-		else{
-			flash_alert('Failed to proceed request (Unauthorised) .', 'danger');
+			else{
+				flash_alert('Failed to proceed request (Unauthorised) .', 'danger');
+			}
 		}
 		return redirect('manage-group');
 	}
