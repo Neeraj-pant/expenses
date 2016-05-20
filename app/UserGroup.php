@@ -4,12 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class GroupDelete extends Model
+class UserGroup extends Model
 {
     protected $fillabel = [
+    	'user_id',
     	'group_id',
-    	'user_id'
+    	'group_delete'
     ];
 
-    protected $table = 'group_deletes';
+    protected $table = 'user_groups';
 }

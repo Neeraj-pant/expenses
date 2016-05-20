@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use App\UserData;
 use App\UserReference;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -26,7 +25,7 @@ class UserController extends Controller
         		'role'=> $request->input('role'),
         	]);          
             if($user){
-                $res = UserData::create([ 'u_id' => $user->id]);		
+                $res = UserReference::create([ 'user_id' => $user->id]);		
                 DB::commit();
                 if($res){
                     flash_alert('User Added Successfully', 'success');

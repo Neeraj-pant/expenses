@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests;
 use App\User;
 use App\Group;
-use App\UserData;
+use App\UserGroup;
 use App\GroupDelete;
 use Validator;
 use DB;
@@ -28,26 +28,30 @@ class GroupController extends Controller
 		if($validator->fails()){
 			return redirect('create-group')->withErrors($validator)->withInput();
 		}
-
-		$i = 1;
-		$g_id = Group::orderBy('id', 'desc')->get(['group_id'])->first();
-		if($g_id){
-			$g_id = $g_id->group_id + 1;
-		}
-		else{
-			$g_id = 1;
-		}
-		while($request->exists('group_member_'.$i)){
-			$id = $request->input('group_member_'.$i);
-			$group = Group::create([
-				'group_id' => $g_id,
-				'name' => $request->input('name'),
-				'user_id' => $id,
-				'status' => '1',
-			]);
-			$i++;
-		}
+        DB::beginTransaction();
+		$group = Group::create([
+			'name' => $request->input('name'),
+			'status' => '1',
+		]);
+		DB::commit();
 		if($group){
+			$i = 1;
+			while($request->exists('group_member_'.$i)){
+				$u_id = $request->input('group_member_'.$i);
+				$g_id = $group->id;
+				$group_up = UserGroup::create([
+					'user_id' => $u_id,
+					'group_id' => $g_id,
+					'group_delete' => 0,
+				]);
+				DB::commit();
+				if(!$group_up){
+					DB::rollBack();
+				}
+				$i++;
+			}
+		}
+		if($group_up){
 			flash_alert('Group Created Successfully.', 'success');
 		}else{
 			flash_alert('Failed to create Group.', 'danger');
