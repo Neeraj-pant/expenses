@@ -23,11 +23,21 @@
                                 <tr>
                                     <td>{{ $group['name'] }}</td>
                                     <td>{{ $group['user_name'] }}</td>
-                                    @if(Auth::user()->role == 1)
+                                    @if($group['delete_id'] == '')
                                         <td>
                                             <a href="#" class="edit-group"><i class="glyphicon glyphicon-edit"></i></a>&nbsp;
                                             <a href="#" class="delete-group" data-toggle="modal" data-target="#delete"  data-id="{{ $group['group_id'] }}"><i class="glyphicon glyphicon-trash"></i></a>&nbsp;&nbsp;
                                             <a href="#" class="report btn btn-info btn-xs"><i class="glyphicon glyphicon-paper"></i>Get Detail</a>
+                                            @if($group['delete_request'] !== 0)
+                                                <span class="text-info">You Have {{ $group['delete_request'] }} Delete Request for this group</span>
+                                            @endif
+                                        </td>
+                                        @else
+                                        <td>
+                                            <a href="#" class="edit-group"><i class="glyphicon glyphicon-edit"></i></a>&nbsp;
+                                            <a href="#" class="delete-group" ><i class="glyphicon glyphicon-ok"></i></a>&nbsp;&nbsp;
+                                            <a href="#" class="report btn btn-info btn-xs"><i class="glyphicon glyphicon-paper"></i>Get Detail</a>&nbsp;&nbsp;
+                                            <span class="text-info">Delete Request Sent</span>
                                         </td>
                                     @endif
                                 </tr>
