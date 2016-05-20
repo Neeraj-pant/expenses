@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserDatasTable extends Migration
+class CreateUserReferencesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,10 +12,9 @@ class CreateUserDatasTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_datas', function (Blueprint $table) {
+        Schema::create('user_references', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('u_id');
-            $table->string('delete_key');
+            $table->integer('user_id');
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ class CreateUserDatasTable extends Migration
      */
     public function down()
     {
-        Schema::drop('user_datas');
+        Schema::drop('user_references');
     }
 }

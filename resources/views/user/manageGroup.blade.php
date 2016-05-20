@@ -19,25 +19,24 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($data as $group)
+                            @foreach($groups as $group)
                                 <tr>
                                     <td>{{ $group['name'] }}</td>
-                                    <td>{{ $group['user_name'] }}</td>
-                                    @if($group['delete_id'] == '')
+                                    <td>{{ $group['members'] }}</td>
+                                    @if(Auth::check())
                                         <td>
                                             <a href="#" class="edit-group"><i class="glyphicon glyphicon-edit"></i></a>&nbsp;
-                                            <a href="#" class="delete-group" data-toggle="modal" data-target="#delete"  data-id="{{ $group['group_id'] }}"><i class="glyphicon glyphicon-trash"></i></a>&nbsp;&nbsp;
-                                            <a href="#" class="report btn btn-info btn-xs"><i class="glyphicon glyphicon-paper"></i>Get Detail</a>
-                                            @if($group['delete_request'] !== 0)
-                                                <span class="text-info">You Have {{ $group['delete_request'] }} Delete Request for this group</span>
+                                            @if($group['active_user_delete'] == 0 || $group['active_user_delete'] === false)
+                                                <a href="#" class="delete-group" data-toggle="modal" data-target="#delete" data-id="{{ $group['id'] }}"><i class="glyphicon glyphicon-trash"></i></a>&nbsp;&nbsp;
+                                                <a href="#" class="report btn btn-info btn-xs"><i class="glyphicon glyphicon-paper"></i>Get Detail</a>
+                                                @if($group['other_user_delete'] == 1)
+                                                    <span class="text-info">You Have {{ $group['delete_request'] }} Delete Request for this group</span>
+                                                @endif
+                                            @else
+                                                <a href="#" class="delete-group" ><i class="glyphicon glyphicon-ok"></i></a>&nbsp;&nbsp;
+                                                <a href="#" class="report btn btn-info btn-xs"><i class="glyphicon glyphicon-paper"></i>Get Detail</a>&nbsp;&nbsp;
+                                                <span class="text-info">Delete Request Sent</span>
                                             @endif
-                                        </td>
-                                        @else
-                                        <td>
-                                            <a href="#" class="edit-group"><i class="glyphicon glyphicon-edit"></i></a>&nbsp;
-                                            <a href="#" class="delete-group" ><i class="glyphicon glyphicon-ok"></i></a>&nbsp;&nbsp;
-                                            <a href="#" class="report btn btn-info btn-xs"><i class="glyphicon glyphicon-paper"></i>Get Detail</a>&nbsp;&nbsp;
-                                            <span class="text-info">Delete Request Sent</span>
                                         </td>
                                     @endif
                                 </tr>

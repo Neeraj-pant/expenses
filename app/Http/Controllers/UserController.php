@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use App\UserData;
+use App\UserGroup;
 use App\UserReference;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -26,7 +26,7 @@ class UserController extends Controller
         		'role'=> $request->input('role'),
         	]);          
             if($user){
-                $res = UserData::create([ 'u_id' => $user->id]);		
+                $res = UserReference::create([ 'user_id' => $user->id]);		
                 DB::commit();
                 if($res){
                     flash_alert('User Added Successfully', 'success');
@@ -85,12 +85,17 @@ class UserController extends Controller
 
     public function deleteUser(Request $request){
         $id = $request->input('delete_id');
+        DB::beginTransaction();
         $del = User::where('id', $id)->delete();
-        if($del){
+        if($del) $del2 = UserReference::where('user_id', $id)->delete();
+        if($del2) $del3 = UserGroup::where('user_id', $id)->delete();
+        if(isset($del3)){
+            DB::commit();
             flash_alert('User Deleted Successfully.', 'success');
         }
         else{
-            flash_alert('Failed to Delete User.', 'error');
+            DB::rollBack();
+            flash_alert('Failed to Delete User.', 'danger');
         }
         return redirect('user-list');
     }
