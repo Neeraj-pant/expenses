@@ -25,12 +25,12 @@
                                     <td>{{ $group['members'] }}</td>
                                     @if(Auth::check())
                                         <td>
-                                            <a href="#" class="edit-group"><i class="glyphicon glyphicon-edit"></i></a>&nbsp;
+                                            <!-- <a href="#" class="edit-group"><i class="glyphicon glyphicon-edit"></i></a>&nbsp; -->
                                             @if($group['active_user_delete'] == 0 || $group['active_user_delete'] === false)
                                                 <a href="#" class="delete-group" data-toggle="modal" data-target="#delete" data-id="{{ $group['id'] }}"><i class="glyphicon glyphicon-trash"></i></a>&nbsp;&nbsp;
                                                 <a href="#" class="report btn btn-info btn-xs"><i class="glyphicon glyphicon-paper"></i>Get Detail</a>
-                                                @if($group['other_user_delete'] == 1)
-                                                    <span class="text-info">You Have {{ $group['delete_request'] }} Delete Request for this group</span>
+                                                @if($group['other_user_delete'] >= 1)
+                                                    <span class="text-info">You Have {{ $group['other_user_delete'] }} Delete Request for this group</span>
                                                 @endif
                                             @else
                                                 <a href="#" class="delete-group" ><i class="glyphicon glyphicon-ok"></i></a>&nbsp;&nbsp;
