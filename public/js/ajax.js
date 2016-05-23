@@ -28,4 +28,7 @@ $(".delete-group").click(function(){
 });
 
 
-
+$("#product-entry").click(function(){
+	id = $(this).attr('data-id');
+	$(".product-group-id").val(id);
+});

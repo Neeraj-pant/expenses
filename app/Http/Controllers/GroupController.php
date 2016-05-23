@@ -61,6 +61,13 @@ class GroupController extends Controller
 
 	public function groupList()
 	{
+		$groups = $this->getAllGroups();
+		return view('user.manageGroup', compact('groups'));
+	}
+
+
+	public function getAllGroups()
+	{
 		$groups = Group::all()->where('status', 1)->toArray();
 		
 		foreach ($groups as $key => $group) 
@@ -76,10 +83,11 @@ class GroupController extends Controller
 			
 			$groups[$key]['other_user_delete'] = 0;
 			$delete_request_others = UserGroup::where('user_id', '<>', Auth::user()->id)->where('group_id', $group['id'])->get(['group_delete'])->toArray();
-
 			if($delete_request_others)
 			{
-				$groups[$key]['other_user_delete'] += $delete_request_others[0]['group_delete'];
+				foreach ($delete_request_others as $delreq) {
+					$groups[$key]['other_user_delete'] += $delreq['group_delete'];
+				}
 			}else{
 				$groups[$key]['other_user_delete'] = false;
 			}
@@ -92,14 +100,15 @@ class GroupController extends Controller
 			}
 			$groups[$key]['members'] = rtrim($groups[$key]['members'], ', ');
 		}
-
-		return view('user.manageGroup', compact('groups'));
+		return $groups;
 	}
-
 
 	public function deleteGroup(Request $request){
 		$id = (int) $request->delete_group_id;  
-		$res = UserGroup::where(['group_id' => $id, 'user_id' => Auth::user()->id])->update(['group_delete'=> 1]);
+		$res = UserGroup::where(['group_id' => $id, 'user_id' => Auth::user()->id])->update(['group_delete' => 1]);
+		if(!$res || $res == 0){
+			flash_alert('Failed to proceed request (Unauthorised) .', 'danger');
+		}
 		$member_count = UserGroup::where('group_id', $id)->count();
 		$group_count = UserGroup::where(['group_id' => $id, 'group_delete' => 1])->count();
 		if($member_count == $group_count){

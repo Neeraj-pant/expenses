@@ -49,4 +49,15 @@ Route::group(['middleware' => 'auth'], function(){
 
 	Route::get('manage-group', 'GroupController@groupList');
 
+	Route::get('product/home', 'ProductController@allProducts');
+
+	Route::get('product/add/{id}', 'ProductController@addProduct');
+	
+	Route::post('product/save', 'ProductController@saveProduct');
+
+	// Route::group(['as' => 'product::'], function () {
+	//     Route::get('product/add', ['as' => 'add', 'ProductController@addProduct']);
+	//      Route::post('product/save', ['as' => 'save', 'ProductController@saveProduct']);
+	// });
+
 });
