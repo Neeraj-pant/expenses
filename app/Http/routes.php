@@ -51,7 +51,7 @@ Route::group(['middleware' => 'auth'], function(){
 
 	Route::get('product/home', 'ProductController@allProducts');
 
-	Route::get('product/add/{id}', 'ProductController@addProduct');
+	Route::get('product/list/{id}', 'ProductController@listProduct');
 	
 	Route::post('product/save', 'ProductController@saveProduct');
 
