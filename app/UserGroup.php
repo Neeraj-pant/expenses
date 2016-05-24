@@ -16,6 +16,6 @@ class UserGroup extends Model
 
     public function user()
     {
-    	return $this->hasMany('App\User', 'id', 'user_id');
+    	return $this->belongsTo('App\User');
     }
 }

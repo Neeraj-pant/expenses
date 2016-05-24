@@ -29,7 +29,7 @@ class productController extends Controller
             return redirect('product/home')->withErrors($validator)->withInput();
         }
 
-        $prd = saveProductDate($request);
+        $prd = $this->saveProductDate($request);
 
         if($prd){
             flash_alert('Product Added successfully', 'info');
@@ -43,7 +43,13 @@ class productController extends Controller
 
     public function saveProductAjax(Request $request)
     {
-        dd($request);
+        $validator = $this->validateFields($request);
+        if($validator->fails()){
+            return $validator->errors()->toArray();
+        }
+
+        $res = $this->saveProductDate($request);
+        return 1;
     }
 
 
@@ -57,6 +63,7 @@ class productController extends Controller
             'price'     =>  $request->input('price'),
             'date'      =>  date('Y-m-d', strtotime($date))
         ]);
+        return $prd;
     }
 
 
@@ -71,6 +78,11 @@ class productController extends Controller
 
     public function listProduct($id)
     {
+        // DB::enableQueryLog();
+        // $users = User::find(2)->userData;
+        // dd(DB::getQueryLog());
+        // dd($users);
+
         //get group user and get pass data in view for group users
         $users = DB::table('users')->join('user_groups', 'users.id', '=', 'user_groups.user_id')->where('user_groups.group_id', '=', $id)->select('users.id', 'users.name', 'user_groups.group_id')->get();
 
@@ -83,6 +95,18 @@ class productController extends Controller
             return true;
         }
         return false;
+    }
+
+
+    public function deleteProduct($id){
+        $del = Product::find($id)->delete();
+        if($del){
+            flash_alert('Product Entry Deleted Successfully', 'success');
+        }
+        else{
+            flash_alert("Delete failed", 'danger');
+        }
+        return back();
     }
 
 }

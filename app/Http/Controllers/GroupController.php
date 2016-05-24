@@ -117,7 +117,7 @@ class GroupController extends Controller
 				flash_alert('Group Deleted Successfully.', 'success');
 			}
 			else{
-				flash_alert('Failed to proceed request (Unauthorised) .', 'danger');
+				flash_alert('Failed to proceed request (Unauthorised) Only Group Members can Delete Group.', 'danger');
 			}
 		}
 		return redirect('manage-group');

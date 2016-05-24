@@ -15,7 +15,7 @@
                 </div>
             @endif
             <div class="panel panel-default">
-                <div class="panel-heading">All Transactions</div>
+                <div class="panel-heading">All Transactions <span class="sub-menu"><a href="#">Compare</a></span></div>
                 <div class="panel-body">
                     <div class="grid">
                         @foreach( $users as $user )
@@ -27,12 +27,15 @@
                                     <ul class="list-group"><?php $pObj = new App\Product; $products = $pObj->getProduct($user->id, $user->group_id); ?>
                                         <p class="list-group-item panel-head-capt">Name<span class="pull-right"> Price </span></p>
                                         @foreach ($products as $product)
-                                            <p class="list-group-item text-info">{{ $product->name }} <span class="pull-right">
-                                                ₹ &nbsp;{{ $product->price }}
-                                            </span> <span class="date-view">{{ date('d-M-Y', strtotime($product->date)) }}</span></p>
+                                            <p class="list-group-item text-info">{{ $product->name }} 
+                                                <span class="date-view">{{ date('d-M-Y', strtotime($product->date)) }}</span>
+                                                <span class="pull-right"> <span class="price">₹ &nbsp;{{ $product->price }} </span>
+                                                <a href="{{url('product/delete/'.$product->id)}}" class="delete-product"></a>
+                                                </span>
+                                            </p>
                                         @endforeach
                                         <p class="list-group-item text-warning warning">Total <span class="pull-right">
-                                                ₹ &nbsp;{{ $products->total }}
+                                                ₹ &nbsp;{{ $products->total }} 
                                         </span></p>
                                     </ul>
                                 </div>
