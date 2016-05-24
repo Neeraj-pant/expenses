@@ -17,9 +17,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/css/bootstrap-datepicker.min.css" crossorigin="anonymous">
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
    
+   <link rel="stylesheet" type="text/css" href="{{ url('css/expenses.css') }}">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/js/bootstrap-datepicker.min.js" type="text/javascript" charset="utf-8" async defer></script>
+
+    <script src="https://npmcdn.com/masonry-layout@4.0/dist/masonry.pkgd.min.js"></script>
+
     <style>
         body {
             font-family: 'Lato';
@@ -53,7 +58,7 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
                     <li><a href="{{ url('/home') }}">Home</a></li>
-                    <li><a href="{{ url('/product/home') }}">Create Entry</a></li>
+                    <li><a href="{{ url('/product/home') }}">Products</a></li>
                     <li><a href="{{ url('/add-user') }}">Add User</a></li>
                     <li><a href="{{ url('/user-list') }}">Manage Users</a></li>
                     <li><a href="{{ url('/create-group') }}">Create Group</a></li>

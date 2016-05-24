@@ -13,4 +13,9 @@ class UserGroup extends Model
     ];
 
     protected $table = 'user_groups';
+
+    public function user()
+    {
+    	return $this->hasMany('App\User', 'id', 'user_id');
+    }
 }

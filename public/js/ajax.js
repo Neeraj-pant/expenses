@@ -28,7 +28,12 @@ $(".delete-group").click(function(){
 });
 
 
-$("#product-entry").click(function(){
+$(".product-entry").click(function(){
 	id = $(this).attr('data-id');
 	$(".product-group-id").val(id);
+});
+
+$("#add-product-ajax").click(function(){
+	form = $("#save-product-form").serialize();
+	console.log(form);
 });
