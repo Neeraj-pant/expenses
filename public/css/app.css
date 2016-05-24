@@ -1,0 +1,24 @@
+.grid-item {
+  width: 33.3333%;
+  padding: 10px; }
+
+.panel-head-capt {
+  padding: 5px 10px;
+  background: rgba(0, 0, 0, 0.15);
+  color: #a94442; }
+
+.grid-item--width2 {
+  width: 400px; }
+
+.date-view {
+  font-size: 11px;
+  width: 70px;
+  position: absolute;
+  right: 80px;
+  top: 11px; }
+
+.modal-content {
+  border-radius: 0;
+  border: 2px solid #5BC0DE; }
+
+/*# sourceMappingURL=app.css.map */

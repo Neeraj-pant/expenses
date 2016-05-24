@@ -35,5 +35,10 @@ $(".product-entry").click(function(){
 
 $("#add-product-ajax").click(function(){
 	form = $("#save-product-form").serialize();
-	console.log(form);
+	$.ajax({
+		url: 'product/save-ajax',
+		data: form
+	}).done(function(data){
+		console.log(data);
+	});
 });
