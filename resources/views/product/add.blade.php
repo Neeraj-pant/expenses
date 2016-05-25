@@ -50,6 +50,7 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title text-primary">Add Product</h4>
                 </div>
+                <p class="text-success bg-info success"></p>
                 <div class="modal-body">
                     <div class="form-group">
                         <div class="row">
@@ -84,11 +85,11 @@
                             </div>
                         </div>
                     </div>
-
+                    <p class="text-danger bg-danger errors"></p>
                     <input type="hidden" class="product-group-id" name="product_group_id" value="">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="add-product-ajax" class="btn btn-primary">Save &amp; Continue</button>
+                    <!-- <button type="button" id="add-product-ajax" class="btn btn-primary">Save &amp; Continue</button> -->
                     <button type="submit" id="add-product" class="btn btn-info">Save</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                 </div>

@@ -54,6 +54,10 @@ Route::group(['middleware' => 'auth'], function(){
 	Route::get('product/list/{id}', 'ProductController@listProduct');
 	
 	Route::post('product/save', 'ProductController@saveProduct');
+	
+	Route::post('product/ajax-save', 'ProductController@saveProductAjax');
+
+	Route::get('product/delete/{id}', 'ProductController@deleteProduct' );
 
 	// Route::group(['as' => 'product::'], function () {
 	//     Route::get('product/add', ['as' => 'add', 'ProductController@addProduct']);

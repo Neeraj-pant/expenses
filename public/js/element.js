@@ -7,7 +7,7 @@ $(document).ready(function() {
         total_lists = $("#group-members").children(".form-group").length;
         if (total_lists < total_options - 1) {
             list_items += 1;
-             var user_list = "<div class='form-group' id='" + list_items + "'><label class='col-md-4 control-label'>Members</label><div class='col-md-6'><select class='form-control' name='group_member_"+ list_items + "'><option value=''>--Select--</option></select></div></div>";
+             var user_list = "<div class='form-group' id='" + list_items + "'><select class='form-control' name='group_member_"+ list_items + "' required=''><option value=''>--Select--</option></select></div>";
             $("#group-members").append(user_list);
 
             //get users nside list 

@@ -16,26 +16,20 @@ class productController extends Controller
 
 	public function allProducts()
 	{
-
 		$groups = app('App\Http\Controllers\groupController')->getAllGroups();
 		return view('product.add', compact('groups'));
 	}
 
 
 
-    public function saveProduct(Request $request){
-    	$validator = $this->validateFields($request);
-    	if($validator->fails()){
-    		return redirect('product/home')->withErrors($validator)->withInput();
-    	}
-        $date = str_replace('/', '-', $request->input('date'));
-    	$prd = Product::create([
-    		'user_id'	=>	Auth::user()->id,
-    		'group_id'	=>	$request->input('product_group_id'),
-    		'name'		=>	$request->input('name'),
-    		'price'		=>	$request->input('price'),
-    		'date'		=>	date('Y-m-d', strtotime($date))
-    	]);
+    public function saveProduct(Request $request)
+    {
+        $validator = $this->validateFields($request);
+        if($validator->fails()){
+            return redirect('product/home')->withErrors($validator)->withInput();
+        }
+
+        $prd = $this->saveProductDate($request);
 
         if($prd){
             flash_alert('Product Added successfully', 'info');
@@ -44,6 +38,32 @@ class productController extends Controller
             flash_alert('Failed to Save product', 'danger');
         }
         return redirect('product/home');
+    }
+
+
+    public function saveProductAjax(Request $request)
+    {
+        $validator = $this->validateFields($request);
+        if($validator->fails()){
+            return $validator->errors()->toArray();
+        }
+
+        $res = $this->saveProductDate($request);
+        return 1;
+    }
+
+
+    private function saveProductDate($request)
+    {
+        $date = str_replace('/', '-', $request->input('date'));
+        $prd = Product::create([
+            'user_id'   =>  Auth::user()->id,
+            'group_id'  =>  $request->input('product_group_id'),
+            'name'      =>  $request->input('name'),
+            'price'     =>  $request->input('price'),
+            'date'      =>  date('Y-m-d', strtotime($date))
+        ]);
+        return $prd;
     }
 
 
@@ -58,6 +78,11 @@ class productController extends Controller
 
     public function listProduct($id)
     {
+        // DB::enableQueryLog();
+        // $users = User::find(2)->userData;
+        // dd(DB::getQueryLog());
+        // dd($users);
+
         //get group user and get pass data in view for group users
         $users = DB::table('users')->join('user_groups', 'users.id', '=', 'user_groups.user_id')->where('user_groups.group_id', '=', $id)->select('users.id', 'users.name', 'user_groups.group_id')->get();
 
@@ -70,6 +95,18 @@ class productController extends Controller
             return true;
         }
         return false;
+    }
+
+
+    public function deleteProduct($id){
+        $del = Product::find($id)->delete();
+        if($del){
+            flash_alert('Product Entry Deleted Successfully', 'success');
+        }
+        else{
+            flash_alert("Delete failed", 'danger');
+        }
+        return back();
     }
 
 }
