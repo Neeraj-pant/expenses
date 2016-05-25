@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container back full">
     @include('alert')
     <div class="panel-heading"><h1>Create Group</h1></div>
     <form method="post" action="{{ url('/save-group') }}">
@@ -25,8 +25,8 @@
         </div>
         <p id="error" class="help-block"></p>
         <div class="user-operation">
-            <a id="create-user" class="follow" href="javascript:void(0)"><i class="fa fa-plus"></i>Add User</a>&nbsp;&nbsp;&nbsp;
-            <a id="delete-user" class="follow" href="javascript:void(0)"><i class="fa fa-trash"></i>Remove User</a>
+            <a id="create-user" class="follow" href="javascript:void(0)"><i class="fa fa-plus"></i><span>Add User</span></a>&nbsp;&nbsp;&nbsp;
+            <a id="delete-user" class="follow" href="javascript:void(0)"><i class="fa fa-trash"></i><span>Remove User</span></a>
         </div>
         <div class="center-content">
             <button type="submit" class="btn btn-primary" id="submit-group">

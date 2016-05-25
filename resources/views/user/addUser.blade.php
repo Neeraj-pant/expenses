@@ -3,7 +3,7 @@
 @section('content')
  
 
-<div class="container">
+<div class="container back full">
     @include('alert')
     <div class="panel-heading"><h1>Add User</h1></div>
     <form method="POST" action="{{ url('/save-user') }}">

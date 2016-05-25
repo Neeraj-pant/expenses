@@ -17,6 +17,21 @@ class productController extends Controller
 	public function allProducts()
 	{
 		$groups = app('App\Http\Controllers\groupController')->getAllGroups();
+        foreach ($groups as $key => $group) {
+            $name = explode(' ', $group['name']);
+            $icon = '';
+            $i = 0;
+            $groups[$key]['class'] = '';
+            foreach ($name as $first) {
+                $icon .= $first[0];
+                $i++;
+                if($i>=2){
+                    $groups[$key]['class'] = 'double';
+                    break;
+                }
+            }
+            $groups[$key]['icon'] = $icon;
+        }
 		return view('product.add', compact('groups'));
 	}
 
