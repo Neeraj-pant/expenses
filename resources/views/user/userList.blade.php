@@ -2,9 +2,8 @@
 
 @section('content')
 <div class="container">
-    @include('alert')
     <h1>Users</h1>
-
+    @include('alert')
     <div class="table-responsive-vertical shadow-z-1">
         <table id="table" class="table table-mc-light-blue">
             <thead>

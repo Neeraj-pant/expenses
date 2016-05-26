@@ -1,4 +1,7 @@
 <?php
+
+define("BACKGROUND_PATH", 'images/background/');
+
 function flash_alert($msg, $class){
 	session()->flash('message', $msg);
 	session()->flash('class', $class);

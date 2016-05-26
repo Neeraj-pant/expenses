@@ -1,11 +1,8 @@
 @extends('layouts.app')
-
 @section('content')
- 
-
 <div class="container back full">
-    @include('alert')
     <div class="panel-heading"><h1>Add User</h1></div>
+    @include('alert')
     <form method="POST" action="{{ url('/save-user') }}">
         {!! csrf_field() !!}
         <input placeholder="Name" type="text" name="name" value="{{ old('name') }}" required="">

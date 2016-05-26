@@ -43,6 +43,7 @@ li {
 .nav {
     margin: 0;
     > li {
+        list-style: none;
         display: inline-block;
         &:hover {
             background: lighten($grey, 30%);
@@ -311,7 +312,7 @@ button {
 
 .alert-danger {
     background: rgba(181, 12, 12, 0.20);
-    color: rgb(130, 0, 0);
+    color: #E00000;
 }
 
 .alert-success {
@@ -324,7 +325,6 @@ button {
     background-size: 100% 100%;
     background-attachment: fixed;
     background-position: top center;
-    //max-height: 100%;
 }
 .full{
   height: 100%;
@@ -334,12 +334,12 @@ button {
     .fa-trash {
         font-size: 20px;
         color: #7D0000;
-        padding: 10px;
+        padding: 7px 10px;
     }
     .fa-check {
         font-size: 20px;
-        padding: 10px;
-        color: #18AA8D;
+        padding: 7px 8px;
+        color: #18aa8d;
     }
 }
 
@@ -365,4 +365,63 @@ button {
 
 .bg-blue{
   background-color: #215A7E;
+}
+
+.list-group{
+    border: 1px solid #1882AA;
+    &:after{
+        content: "";
+        display: table;
+        clear: both;
+    }
+    .entry-wrapper{
+        padding: 0 15px;
+    }
+    h2{
+        background-color: rgba(24, 130, 170, 0.55);
+        padding: 15px;
+        margin: 0;
+        color: #ffffff;
+        margin-bottom: 15px;
+    }
+}
+
+.grid-item{
+    width: 33.3333%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+.total{
+    float: right;
+    font-size: 15px;
+    color: #ffffff;
+    font-weight: 300;
+}
+.content-post{
+    img{
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+    }
+}
+
+.no-wrap{
+    margin-bottom: 0;
+}
+.group-layout{
+    text-align: center;
+    background-color: #215A7E;
+    a{
+        font-size: 30px;
+        padding: 8px;
+        background-color: #215A7E;
+        display: inline-block;
+        color: rgba(171, 171, 171, 0.91);
+    }
+    .active{
+        color: #fff;
+    }
+}
+.panels{
+    display: none;
 }

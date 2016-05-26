@@ -13,17 +13,19 @@
             </ul>
         </div>
     @endif
+    <?php $numbers = range(1, 9); shuffle($numbers); $i=0; ?>
     <div class="figure-card">
          @foreach( $groups as $group)
             <div class="grid-4">
                 <figure class="snip1336">
-                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample87.jpg" alt="sample87" />
+                    <img src="{{ url(BACKGROUND_PATH.$numbers[$i].'.jpg') }}" ><?php $i++; ?>
+                    <!-- <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample87.jpg" alt="sample87" /> -->
                     <figcaption>
                         <div class="profile"><span class="{{ $group['class'] }}">{{ $group['icon'] }}</span></div>
                         <h2>{{ $group['name'] }}<span>{{ date('d-M-Y', strtotime($group['created_at'])) }}</span></h2>
                         <h4>Members</h4><p>{{ $group['members'] }}</p>
                         @if (App::make('app\Http\Controllers\productController')->isUserInGroup($group['id']))
-                            <a href="javascript:void(0)" class="follow-ic modal-open">Make Entry</a>
+                            <a href="javascript:void(0)" class="follow-ic modal-open product-entry" data-id={{ $group['id'] }}>Make Entry</a>
                         @endif
                         <a href="{{ url('product/list/').'/'.$group['id'] }}" class="info">Check Info</a>
                     </figcaption>

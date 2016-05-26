@@ -1,122 +1,56 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container ">
+    <h1>Entries</h1>
     @include('alert')
-    <h1>Groups</h1>
-    <div class="row">
-        <div class="col-xs-12">
-            @if (count($errors) > 0)
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-            <div class="panel panel-default">
-                <div class="panel-heading">All Transactions <span class="sub-menu"><a href="#">Compare</a></span></div>
-                <div class="panel-body">
-                    <div class="grid">
-                        @foreach( $users as $user )
-                            <div class="grid-item">
-                                <div class="panel panel-primary">
-                                    <div class="panel-heading">
-                                        <h3 class="panel-title">{{ $user->name }}</h3>
-                                    </div>
-                                    <ul class="list-group"><?php $pObj = new App\Product; $products = $pObj->getProduct($user->id, $user->group_id); ?>
-                                        <p class="list-group-item panel-head-capt">Name<span class="pull-right"> Price </span></p>
-                                        @foreach ($products as $product)
-                                            <p class="list-group-item text-info">{{ $product->name }} 
-                                                <span class="date-view">{{ date('d-M-Y', strtotime($product->date)) }}</span>
-                                                <span class="pull-right"> <span class="price">₹ &nbsp;{{ $product->price }} </span>
-                                                <a href="{{url('product/delete/'.$product->id)}}" class="delete-product"></a>
-                                                </span>
-                                            </p>
-                                        @endforeach
-                                        <p class="list-group-item text-warning warning">Total <span class="pull-right">
-                                                ₹ &nbsp;{{ $products->total }} 
-                                        </span></p>
-                                    </ul>
-                                </div>
+
+    <div class="grid">
+        @foreach( $users as $user )
+            <div class="grid-item">
+                <?php $pObj = new App\Product; $products = $pObj->getProduct($user->id, $user->group_id); ?>
+                <div class="list-group">
+                    <h2>{{ $user->name }}<span class="total">₹ {{ $products->total }}</span></h2>
+                    <div class="entry-wrapper">
+                        @if( $products->total == 0)
+                            <p>No Data Found !</p>
+                        @endif
+                        @foreach ($products as $product)
+                            <div class="cont_princ_lists">
+                                <ul>
+                                    <li class="list_shopping li_num_0_1">
+                                        <div class="col_md_1_list">
+                                            <p>{{ $product->name }}</p>
+                                        </div>
+                                        <div class="col_md_2_list">
+                                            <p>{{ date('d-M-Y', strtotime($product->date)) }}</p>
+                                        </div>
+                                        <div class="col_md_3_list">
+                                            <div class="cont_text_date">
+                                                <p>₹ &nbsp;{{ $product->price }} </p>      
+                                            </div>    
+                                            <div class="cont_btns_options">
+                                                <ul>
+                                                    <li>
+                                                        <a href="{{url('product/delete/'.$product->id)}}" class="delete-product" onclick="finish_action('0','0_1');"><i class="fa fa-trash"></i></a>
+                                                    </li>
+                                                </ul>    
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
                             </div>
                         @endforeach
                     </div>
                 </div>
             </div>
-        </div>
+        @endforeach
     </div>
 </div>
 
-
-<div id="entry" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <form name="product-entry" method="POST" action="{{ url('product/save') }}">
-            {!! csrf_field() !!}
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title text-primary">Add Product</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <div class="row">
-                            <label class="col-md-3 col-md-offset-1 control-label">Product Name</label>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control" name="name" value="{{ old('name') }}" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                        <label class="col-md-3 col-md-offset-1 control-label">Product Price</label>
-                            <div class="col-md-6">
-                                <div class="input-group">
-                                    <span class="input-group-addon">₹</span>
-                                    <input type="number" class="form-control" min="0" name="price" value="{{ old('price') }}" required>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="row">
-                        <label class="col-md-3 col-md-offset-1 control-label">Select Date</label>
-                            <div class="col-md-6">
-                                <div class="input-group date-select">
-                                    <input type='text' name="date" class="form-control datepicker" id='datepicker' value="{{ date('d/m/Y') }}" min="0" required />
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-calendar"></span>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <input type="hidden" class="product-group-id" name="product_group_id" value="">
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" id="add-product" class="btn btn-info">Save</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                </div>
-            </div>
-        </form> 
-    </div>
-</div>
-<script type="text/javascript">
-$(document).ready(function(){
-    $('.date-select').datepicker({
-        endDate: "tomorow",
-        todayBtn: "linked",
-        autoclose: true,
-        format: 'dd/mm/yy',
-        todayHighlight: true,
-    });
-
+<script>
     $('.grid').masonry({
-      itemSelector: '.grid-item',
+      itemSelector: '.grid-item'
     });
-});
 </script>
 @endsection

@@ -2,8 +2,8 @@
 
 @section('content')
 <div class="container back full">
-    @include('alert')
     <div class="panel-heading"><h1>Create Group</h1></div>
+    @include('alert')
     <form method="post" action="{{ url('/save-group') }}">
         {!! csrf_field() !!}
         <input type="text" placeholder="Group Name" name="name" value="{{ old('name') }}" required="">

@@ -8,6 +8,11 @@
     <title>Expenses</title>
 
     <!-- Fonts -->
+
+    <link rel="stylesheet" href="{{ url('css/pace-theme-minimal.css') }}">
+
+    <script src="{{ url('js/pace.min.js') }}" type="text/javascript" charset="utf-8" async defer></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700">
@@ -80,5 +85,8 @@
     <script src="{{ url('js/ajax.js') }}" type="text/javascript" charset="utf-8" async defer></script>
     <script src="{{ url('js/element.js') }}" type="text/javascript" charset="utf-8" async defer></script>
     <script src="{{ url('js/modal.js') }}" type="text/javascript" charset="utf-8" async defer></script>
+    <script src="{{ url('js/panel.js') }}" type="text/javascript" charset="utf-8" async defer></script>
+    <script src="{{ url('js/custom.js') }}" type="text/javascript" charset="utf-8" async defer></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 </body>
 </html>
