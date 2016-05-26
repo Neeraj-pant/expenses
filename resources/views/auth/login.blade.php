@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container back full">
     @include('alert')
     <div class="panel-heading"><h1>Login</h1></div>
     <form method="POST" action="{{ url('/login') }}">
@@ -24,7 +24,7 @@
         <button type="submit" class="btn btn-primary">
             <i class="fa fa-btn fa-sign-in"></i>Login
         </button>
-        <a class="btn btn-link" href="{{ url('/password/reset') }}">Forgot Your Password?</a>
+        <a class="btn btn-link forgot" href="{{ url('/password/reset') }}">Forgot Your Password?</a>
     </form>
 </div>
 @endsection

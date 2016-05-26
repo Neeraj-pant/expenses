@@ -1,109 +1,69 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container back">
+    <h1 class="bg-blue">Groups</h1>
     @include('alert')
-    <div class="row">
-        <div class="col-xs-12">
-            @if (count($errors) > 0)
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-            <div class="panel panel-default">
-                <div class="panel-heading">Select  Group</div>
-                <div class="panel-body">
-                    <div class="row">
-                        @foreach( $groups as $group)
-                        <div class="col-sm-4 text-center">
-                            <div class="card" style="border:1px solid #46b8da; padding:10px; margin-bottom:15px;">
-                                <div class="card-block">
-                                    <h4 class="card-title text-primary">{{ $group['name'] }}</h4>
-                                    <p class="card-text"><b>Members : </b> {{ $group['members'] }}</p>
-                                    <p class="card-text"><b>Created at : </b> {{ date('d-m-Y', strtotime($group['created_at'])) }}</p>
-                                    <a href="{{ url('product/list/').'/'.$group['id'] }}" class="btn btn-info btn-xs">Check Entries</a>
-                                    @if (App::make('app\Http\Controllers\productController')->isUserInGroup($group['id']))
-                                        <a href="#" data-id="{{ $group['id'] }}" class="btn btn-primary btn-xs product-entry"  data-toggle="modal" data-target="#entry">Make Entry</a>&nbsp;&nbsp;
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-                        @endforeach
-                    </div>
-                </div>
-            </div>
+    @if (count($errors) > 0)
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
         </div>
+    @endif
+    <div class="figure-card">
+         @foreach( $groups as $group)
+            <div class="grid-4">
+                <figure class="snip1336">
+                    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample87.jpg" alt="sample87" />
+                    <figcaption>
+                        <div class="profile"><span class="{{ $group['class'] }}">{{ $group['icon'] }}</span></div>
+                        <h2>{{ $group['name'] }}<span>{{ date('d-M-Y', strtotime($group['created_at'])) }}</span></h2>
+                        <h4>Members</h4><p>{{ $group['members'] }}</p>
+                        @if (App::make('app\Http\Controllers\productController')->isUserInGroup($group['id']))
+                            <a href="javascript:void(0)" class="follow-ic modal-open">Make Entry</a>
+                        @endif
+                        <a href="{{ url('product/list/').'/'.$group['id'] }}" class="info">Check Info</a>
+                    </figcaption>
+                </figure>
+            </div>
+        @endforeach
     </div>
-</div>
 
 
-<div id="entry" class="modal fade" role="dialog">
-    <div class="modal-dialog">
+
+
+<div id="modal-container">
+<div id="entry" class="modal-background" >
+    <div class="modal">
+        <a href="#" class="close close-modal">&times;</button></a>
         <form id="save-product-form" name="product-entry" method="POST" action="{{ url('product/save') }}">
             {!! csrf_field() !!}
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title text-primary">Add Product</h4>
+            <h2 class="modal-title text-info">Add Product</h2>
+            <p class="text-success bg-info success"></p>
+            <div class="modal-body">
+                <input type="text" placeholder="Name" name="name" value="{{ old('name') }}" required="">
+                <div class="input-group-mix">
+                    <span class="input-group-addon">₹</span>
+                    <input type="number" placeholder="Price" min="0" name="price" value="{{ old('price') }}" required="">
                 </div>
-                <p class="text-success bg-info success"></p>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <div class="row">
-                            <label class="col-md-3 col-md-offset-1 control-label">Product Name</label>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control" name="name" value="{{ old('name') }}" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                        <label class="col-md-3 col-md-offset-1 control-label">Product Price</label>
-                            <div class="col-md-6">
-                                <div class="input-group">
-                                    <span class="input-group-addon">₹</span>
-                                    <input type="number" class="form-control" min="0" name="price" value="{{ old('price') }}" required>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="row">
-                        <label class="col-md-3 col-md-offset-1 control-label">Select Date</label>
-                            <div class="col-md-6">
-                                <div class="input-group date">
-                                    <input type='text' name="date" class="form-control datepicker" id='datepicker' value="{{ date('d/m/Y') }}" min="0" required />
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-calendar"></span>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="text-danger bg-danger errors"></p>
-                    <input type="hidden" class="product-group-id" name="product_group_id" value="">
+                <div class="data-group">
+                    <input type='text' name="date" placeholder="Date" class="datepicker" id='datepicker' value="{{ date('d/m/Y') }}" min="0" required="" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
                 </div>
+                <p class="text-danger bg-danger errors"></p>
+                <input type="hidden" class="product-group-id" name="product_group_id" value="">
                 <div class="modal-footer">
                     <!-- <button type="button" id="add-product-ajax" class="btn btn-primary">Save &amp; Continue</button> -->
                     <button type="submit" id="add-product" class="btn btn-info">Save</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                </div>
+                    <button type="button" class="close-modal btn btn-purple btn-fill-vert" data-dismiss="modal">Cancel</button>
+                 </div>
             </div>
         </form> 
     </div>
 </div>
-<script type="text/javascript">
-    $('.input-group.date').datepicker({
-    endDate: "tomorow",
-    todayBtn: "linked",
-    autoclose: true,
-    multidate: "d/m/y",
-    todayHighlight: true,
-    });
-</script>
 @endsection

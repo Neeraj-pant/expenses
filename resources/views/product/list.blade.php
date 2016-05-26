@@ -3,6 +3,7 @@
 @section('content')
 <div class="container">
     @include('alert')
+    <h1>Groups</h1>
     <div class="row">
         <div class="col-xs-12">
             @if (count($errors) > 0)

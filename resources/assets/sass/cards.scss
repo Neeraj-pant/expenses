@@ -1,0 +1,121 @@
+.grid-4{
+  width:25%;
+  padding: 20px;
+  float: left;
+  box-sizing: border-box;
+}
+.snip1336 {
+  font-family: 'Roboto', Arial, sans-serif;
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  width: 100%;
+  color: #ffffff;
+  text-align: left;
+  line-height: 1.4em;
+  background-color: #141414;
+  h4{
+    opacity: 0.78;
+  }
+}
+.snip1336 * {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: all 0.25s ease;
+  transition: all 0.25s ease;
+}
+.snip1336 img {
+  max-width: 100%;
+  vertical-align: top;
+  opacity: 0.85;
+}
+.snip1336 figcaption {
+  width: 100%;
+  background-color: #141414;
+  padding: 25px;
+  position: relative;
+}
+.snip1336 figcaption:before {
+  position: absolute;
+  content: '';
+  bottom: 100%;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 55px 0 0 400px;
+  border-color: transparent transparent transparent #141414;
+}
+.snip1336 figcaption a {
+  padding: 5px;
+  border: 1px solid #ffffff;
+  color: #ffffff;
+  font-size: 0.7em;
+  text-transform: uppercase;
+  margin: 10px 0;
+  display: inline-block;
+  opacity: 0.65;
+  width: 47%;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+.snip1336 figcaption a:hover {
+  opacity: 1;
+}
+.snip1336 .profile {
+    border-radius: 50%;
+    position: absolute;
+    bottom: 100%;
+    left: 25px;
+    z-index: 1;
+    max-width: 90px;
+    opacity: 1;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    background-color: #2980B9;
+    width: 90px;
+    height: 90px;
+    span{
+      font-size: 35px;
+      position: absolute;
+      left: 33px;
+      top: 35px;
+      text-transform: uppercase;
+    }
+    .double{
+      left: 25px;
+    }
+}
+.snip1336 .follow-ic {
+  margin-right: 4%;
+  border-color: #2980b9;
+  background: #2980b9;
+  color: #FFF;
+  font-size: 12px;
+  font-weight: 300;
+}
+.snip1336 h2 {
+  margin: 0 0 5px;
+  font-weight: 300;
+  color: #F58B52;
+}
+.snip1336 h2:first-child{
+  text-transform: uppercase;
+}
+.snip1336 h2 span {
+  display: block;
+  font-size: 0.5em;
+  color: #B25C39;
+}
+.snip1336 p {
+  margin: 0 0 10px;
+  font-size: 1.2em;
+  opacity: 1;
+}
+
+.figure-card:after{
+  content:"";
+  display: table;
+  clear: both;
+}
