@@ -103,7 +103,8 @@ class GroupController extends Controller
 		return $groups;
 	}
 
-	public function deleteGroup(Request $request){
+	public function deleteGroup(Request $request)
+	{
 		$id = (int) $request->delete_group_id;  
 		$res = UserGroup::where(['group_id' => $id, 'user_id' => Auth::user()->id])->update(['group_delete' => 1]);
 		if(!$res || $res == 0){
@@ -121,6 +122,13 @@ class GroupController extends Controller
 			}
 		}
 		return redirect('manage-group');
+	}
+
+
+	public function groupDetail( $id )
+	{
+		$group = Group::find($id);
+		return view('product.group_detail', compact('group'));
 	}
 }
 

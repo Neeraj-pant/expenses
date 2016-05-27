@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container main">
-    <h1 class="no-wrap">Group Details</h1>
+    <h1 class="no-wrap">Group List</h1>
     @include('alert')
     <div class="group-layout">
         <div class="layout-type">
@@ -75,7 +75,7 @@
                             @if(Auth::check())
                                 <td data-title="sctions">
                                     <!-- <a href="#" class="edit-group"><i class="glyphicon glyphicon-edit"></i></a>&nbsp; -->
-                                    <a href="#" class="report btn btn btn-orange btn-border-rev"><i class="fa fa-paper"></i>Get Detail</a>
+                                    <a href="group-detail/{{ $group['id'] }}" class="report btn btn btn-orange btn-border-rev"><i class="fa fa-paper"></i>Get Detail</a>
                                     @if($group['active_user_delete'] == 0 || $group['active_user_delete'] === false)
                                         <a href="#" class="delete-group modal-open" data-id="{{ $group['id'] }}"><i class="fa fa-trash"></i></a>
                                         @if($group['other_user_delete'] >= 1)

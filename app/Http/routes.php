@@ -49,6 +49,8 @@ Route::group(['middleware' => 'auth'], function(){
 
 	Route::get('manage-group', 'GroupController@groupList');
 
+	Route::get('group-detail/{id}', 'GroupController@groupDetail');
+
 	Route::get('product/home', 'ProductController@allProducts');
 
 	Route::get('product/list/{id}', 'ProductController@listProduct');

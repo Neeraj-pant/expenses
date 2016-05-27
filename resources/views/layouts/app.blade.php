@@ -37,7 +37,7 @@
         }
     </style>
 </head>
-<body id="app-layout">
+<body id="app-layout" class="background">
     <nav class="navbar navbar-default navbar-static-top">
         <div class="container">
             <div class="navbar-header">
@@ -59,14 +59,21 @@
             <div id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav">
-                    <li><a href="{{ url('/home') }}">Home</a></li>
-                    <li><a href="{{ url('/product/home') }}">Products</a></li>
-                    <li><a href="{{ url('/add-user') }}">Add User</a></li>
-                    <li><a href="{{ url('/user-list') }}">Manage Users</a></li>
-                    <li><a href="{{ url('/create-group') }}">Create Group</a></li>
-                    <li><a href="{{ url('/manage-group') }}">Manage Groups</a></li>
+                    <li class="svg-wrapper"><svg width=70px class="item-1" xmlns="http://www.w3.org/2000/svg"><rect width=70px height=35px class="shape"/></rect></svg><div class="text"><a href="{{ url('/home') }}">Home</a></div>
+                    </li>
+                    <li class="svg-wrapper"><svg width=90px class="item-2" xmlns="http://www.w3.org/2000/svg"><rect width=70px height=35px class="shape"/></rect></svg><div class="text"><a href="{{ url('/product/home') }}">Products</a></div>
+                    </li>
+                    <li class="svg-wrapper"><svg width=90px class="item-3" xmlns="http://www.w3.org/2000/svg"><rect width=70px height=35px class="shape"/></rect></svg><div class="text"><a href="{{ url('/add-user') }}">Add User</a></div>
+                    </li>
+                    <li class="svg-wrapper"><svg width=120px class="item-4" xmlns="http://www.w3.org/2000/svg"><rect width=70px height=35px class="shape"/></rect></svg><div class="text"><a href="{{ url('/user-list') }}">Manage Users</a></div>
+                    </li>
+                    <li class="svg-wrapper"><svg width=115px class="item-5" xmlns="http://www.w3.org/2000/svg"><rect width=70px height=35px class="shape"/></rect></svg><div class="text"><a href="{{ url('/create-group') }}">Create Group</a></div>
+                    </li>
+                    <li class="svg-wrapper"><svg width=130px class="item-6" xmlns="http://www.w3.org/2000/svg"><rect width=70px height=35px class="shape"/></rect></svg><div class="text"><a href="{{ url('/manage-group') }}">Manage Groups</a></div>
+                    </li>
                     @if (Auth::guest())
-                        <li><a href="{{ url('/login') }}">Login</a></li>
+                        <li class="svg-wrapper"><svg width=70px class="item-7" xmlns="http://www.w3.org/2000/svg"><rect width=70px height=35px class="shape"/></rect></svg><div class="text"><a href="{{ url('/login') }}">Login</a></div>
+                        </li>
                     @else
                         <li class="username1 drop">
                             {{ Auth::user()->name }} <span class="caret"></span>
@@ -75,6 +82,7 @@
                             </ul>
                         </li>
                     @endif
+                    <li><div class="inputbox"><input type="text" id="search" required="required"/> <button type="reset" class="del"></button></div></li>
                 </ul>
             </div>
         </div>
