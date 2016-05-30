@@ -13,4 +13,8 @@ class Group extends Model
 
     protected $table = 'groups';
 
+    public function getName($id){
+    	$name = $this->where('id', $id)->get(['name']);
+    	return $name[0]->name;
+    }
 }

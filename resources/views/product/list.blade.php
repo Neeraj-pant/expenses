@@ -28,14 +28,16 @@
                                         <div class="col_md_3_list">
                                             <div class="cont_text_date">
                                                 <p>₹ &nbsp;{{ $product->price }} </p>      
-                                            </div>    
-                                            <div class="cont_btns_options">
-                                                <ul>
-                                                    <li>
-                                                        <a href="{{url('product/delete/'.$product->id)}}" class="delete-product" onclick="finish_action('0','0_1');"><i class="fa fa-trash"></i></a>
-                                                    </li>
-                                                </ul>    
                                             </div>
+                                            @if($user->id == Auth::user()->id)
+                                                <div class="cont_btns_options">
+                                                    <ul>
+                                                        <li>
+                                                            <a href="{{url('product/delete/'.$product->id)}}" class="delete-product" onclick="finish_action('0','0_1');"><i class="fa fa-trash"></i></a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            @endif
                                         </div>
                                     </li>
                                 </ul>

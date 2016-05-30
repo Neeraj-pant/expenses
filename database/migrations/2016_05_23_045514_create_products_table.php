@@ -18,6 +18,7 @@ class CreateProductsTable extends Migration
             $table->integer('group_id');
             $table->string('name');
             $table->integer('price');
+            $table->integer('cleared');
             $table->date('date');
             $table->timestamps();
         });

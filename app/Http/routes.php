@@ -61,6 +61,8 @@ Route::group(['middleware' => 'auth'], function(){
 
 	Route::get('product/delete/{id}', 'ProductController@deleteProduct' );
 
+	Route::get('pay/{id}', 'PaymentController@payNow');
+
 	// Route::group(['as' => 'product::'], function () {
 	//     Route::get('product/add', ['as' => 'add', 'ProductController@addProduct']);
 	//      Route::post('product/save', ['as' => 'save', 'ProductController@saveProduct']);

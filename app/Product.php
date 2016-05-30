@@ -8,7 +8,7 @@ use DB;
 class Product extends Model
 {
     protected $fillable = [
-    	'user_id', 'group_id', 'name', 'price', 'date'
+    	'user_id', 'group_id', 'name', 'price', 'date', 'cleared'
     ];
 
     protected $table = 'products';
