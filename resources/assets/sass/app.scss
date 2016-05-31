@@ -3,6 +3,7 @@ $sub-menu-hover: #752020;
 $color: #1abc9c;
 $grey: #9e9e9e;
 $plum: #8e44ad;
+$blue: #215A7E;
 $shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16),
 0 2px 8px 0 rgba(0, 0, 0, 0.12);
 $form-width: 370px;
@@ -647,4 +648,28 @@ $color: #18AA8D;
     border: 0 !important;
     border-radius: 15px;
     font-weight: normal !important;
+}
+
+.sub-nav {
+    background-color: $blue;
+    .filter-wrapper{
+        display: inline-block;
+        padding: 7px 20px;
+        input{
+            margin: 0;
+            display: inline-block;
+            border: 1px solid #fff;
+            padding-left: 10px;
+            background: transparent;
+            color: #bfbfbf;
+            padding: 5px;
+            width: 200px;
+            font-size: 14px;
+        }
+        label{
+            color: #fff;
+            padding: 0 20px;
+            vertical-align: middle;
+        }
+    }
 }

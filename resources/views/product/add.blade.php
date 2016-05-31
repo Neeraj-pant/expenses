@@ -23,9 +23,6 @@
                     <figcaption>
                         <div class="profile"><span class="{{ $group['class'] }}">{{ $group['icon'] }}</span></div>
                         <h2>{{ $group['name'] }}<span>{{ date('d-M-Y', strtotime($group['created_at'])) }}</span></h2>
-                        @if (App::make('app\Http\Controllers\productController')->isUserInGroup($group['id']))
-                            <a href="{{ url('pay/').'/'.$group['id'] }}" class="pay-btn">Pay Now</a>
-                        @endif
                         <h4>Members</h4><p>{{ $group['members'] }}</p>
                         @if (App::make('app\Http\Controllers\productController')->isUserInGroup($group['id']))
                             <a href="javascript:void(0)" class="follow-ic modal-open product-entry" data-id={{ $group['id'] }}>Make Entry</a>
@@ -51,7 +48,7 @@
             <div class="modal-body">
                 <input type="text" placeholder="Name" name="name" value="{{ old('name') }}" required="">
                 <div class="input-group-mix">
-                    <span class="input-group-addon">₹</span>
+                    <span class="input-group-addon">{{ CURRENCY }}</span>
                     <input type="number" placeholder="Price" min="0" name="price" value="{{ old('price') }}" required="">
                 </div>
                 <div class="data-group">

@@ -1,6 +1,7 @@
 <?php
 
 define("BACKGROUND_PATH", 'images/background/');
+define("CURRENCY", '₹');
 
 function flash_alert($msg, $class){
 	session()->flash('message', $msg);

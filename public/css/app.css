@@ -546,6 +546,26 @@ nav.navbar.navbar-default.navbar-static-top {
   border-radius: 15px;
   font-weight: normal !important; }
 
+.sub-nav {
+  background-color: #215A7E; }
+  .sub-nav .filter-wrapper {
+    display: inline-block;
+    padding: 7px 20px; }
+    .sub-nav .filter-wrapper input {
+      margin: 0;
+      display: inline-block;
+      border: 1px solid #fff;
+      padding-left: 10px;
+      background: transparent;
+      color: #bfbfbf;
+      padding: 5px;
+      width: 200px;
+      font-size: 14px; }
+    .sub-nav .filter-wrapper label {
+      color: #fff;
+      padding: 0 20px;
+      vertical-align: middle; }
+
 div[id^=modal-container] {
   position: fixed;
   display: table;

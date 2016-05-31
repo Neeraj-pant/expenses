@@ -10,7 +10,7 @@
             <div class="grid-item">
                 <?php $pObj = new App\Product; $products = $pObj->getProduct($user->id, $user->group_id); ?>
                 <div class="list-group">
-                    <h2>{{ $user->name }}<span class="total">₹ {{ $products->total }}</span></h2>
+                    <h2>{{ $user->name }}<span class="total">{{ CURRENCY }} {{ $products->total }}</span></h2>
                     <div class="entry-wrapper">
                         @if( $products->total == 0)
                             <p>No Data Found !</p>
@@ -27,7 +27,7 @@
                                         </div>
                                         <div class="col_md_3_list">
                                             <div class="cont_text_date">
-                                                <p>₹ &nbsp;{{ $product->price }} </p>      
+                                                <p>{{ CURRENCY }} &nbsp;{{ $product->price }} </p>      
                                             </div>
                                             @if($user->id == Auth::user()->id)
                                                 <div class="cont_btns_options">

@@ -3,11 +3,9 @@
 @section('content')
 <div class="container main">
     <?php $group = new App\Group; ?>
-    <h1 class="no-wrap">Group {{ $name = $group->getName($products['group_id']) }}</h1>
-    <div class="sub-nav">
-        <ul class="nav">
-            <li><a href="#">Start Date</a></li>
-        </ul>
+    <h1 class="no-wrap">Group : {{ $name = $group->getName($products['group_id']) }}</h1>
+    <div class="sub-nav">    
+        @include('filters.date_filters')
     </div>
     @include('alert')
     <div class="tables">
@@ -15,18 +13,18 @@
             <table id="table" class="table table-mc-light-blue">
                 <thead>
                     <tr>
-                        <th>Total Spend (₹)</th>
+                        <th>Total Spend ({{ CURRENCY }})</th>
                         <th>Total Entries</th>
-                        <th>Cleared (₹)</th>
-                        <th>Pending (₹)</th>
+                        <th>Cleared ({{ CURRENCY }})</th>
+                        <th>Pending ({{ CURRENCY }})</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>₹ {{ $products['total'] }}</td>
+                        <td>{{CURRENCY}} {{ $products['total'] }}</td>
                         <td>{{ $products['entries'] }}</td>
-                        <td>₹ {{ $products['cleared']['total'] }}&nbsp; ({{ $products['cleared']['count'] }} entries)</td>
-                        <td>₹ {{ $products['pending']['total'] }}&nbsp; ({{ $products['pending']['count'] }} entries)</td>
+                        <td>{{CURRENCY}} {{ $products['cleared']['total'] }}&nbsp; ({{ $products['cleared']['count'] }} entries)</td>
+                        <td>{{CURRENCY}} {{ $products['pending']['total'] }}&nbsp; ({{ $products['pending']['count'] }} entries)</td>
                     </tr>
                 </tbody>
             </table>
@@ -44,19 +42,19 @@
                         <table id="table" class="table table-mc-light-blue">
                             <thead>
                                 <tr>
-                                    <th>Total Spend (₹)</th>
+                                    <th>Total Spend ({{ CURRENCY }})</th>
                                     <th>Total Entries</th>
-                                    <th>Cleared (₹)</th>
-                                    <th>Pending (₹)</th>
+                                    <th>Cleared ({{ CURRENCY }})</th>
+                                    <th>Pending ({{ CURRENCY }})</th>
                                     <th>Pending From</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>₹ {{ $data['total'] }}</td>
+                                    <td>{{CURRENCY}} {{ $data['total'] }}</td>
                                     <td>{{ $data['entries'] }}</td>
-                                    <td>₹ {{ $data['cleared'] }}</td>
-                                    <td>₹ {{ $data['pending'] }}</td>
+                                    <td>{{ CURRENCY }} {{ $data['cleared'] }}</td>
+                                    <td>{{CURRENCY}} {{ $data['pending'] }}</td>
                                     <td>{{ $data['pending_date'] }}</td>
                                 </tr>
                             </tbody>
