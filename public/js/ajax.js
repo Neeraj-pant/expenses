@@ -75,3 +75,22 @@ $(".product-entry").click(function(){
 // 		$(".errors").show();
 // 	}
 // });
+
+
+
+//	filter group data using start date and end date
+
+$("#group-filter .start-date, #group-filter .end-date").change(function(){
+	var gp_id = $(".gp-id").val();
+	var start_date = $(".start-date").val();
+	var end_date = $(".end-date").val();
+	var _token = $('input[name=_token]').val();
+	$.ajax({
+		url : "filter-group",
+		method: "post",
+		data : { _token: _token, id: gp_id, start_date: start_date, end_date: end_date }
+	})
+	.done(function(data){
+		$("body").html(data);
+	});
+});

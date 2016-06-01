@@ -63,6 +63,8 @@ Route::group(['middleware' => 'auth'], function(){
 
 	Route::get('pay/{id}', 'PaymentController@payNow');
 
+	Route::post('group-detail/filter-group', 'AjaxController@filterGroup');
+
 	// Route::group(['as' => 'product::'], function () {
 	//     Route::get('product/add', ['as' => 'add', 'ProductController@addProduct']);
 	//      Route::post('product/save', ['as' => 'save', 'ProductController@saveProduct']);

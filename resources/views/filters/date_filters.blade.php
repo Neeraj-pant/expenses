@@ -1,10 +1,10 @@
 <div class="date_filter">
 	<div class="filter-wrapper">
 		<label>Start Date</label>
-		<input type="date" name="start_date" value="{{ date('Y-m-d') }}">
+		<input type="text" name="start_date" class="start-date datepicker">
 	</div>
 	<div class="filter-wrapper">
 		<label>End Date</label>
-		<input type="date" name="end_date" value="{{ date('Y-m-d') }}">
+		<input type="text" name="end_date" class="end-date datepicker" value="{{ date('m/d/Y') }}">
 	</div>
 </div>

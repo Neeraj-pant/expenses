@@ -19,6 +19,8 @@
     
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
 
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
     <link rel="stylesheet" href="{{ url('css/tables.css') }}">
 
     <link rel="stylesheet" type="text/css" href="{{ url('css/app.css') }}">
@@ -27,6 +29,11 @@
 
     <script src="https://npmcdn.com/masonry-layout@4.0/dist/masonry.pkgd.min.js"></script>
 
+    <script>
+        $(function() {
+            $( ".datepicker" ).datepicker();
+        });
+    </script>
     <style>
         body {
             font-family: 'Lato';
