@@ -106,6 +106,7 @@ li {
 }
 
 .navbar-header {
+    position: relative;
     text-align: center;
     a {
         padding: 10px;
@@ -129,7 +130,7 @@ li {
 h1,
 input::-webkit-input-placeholder,
 button {
-    font-family: 'roboto', sans-serif;
+    font-family: Roboto, sans-serif;
     transition: all 0.3s ease-in-out;
 }
 
@@ -516,7 +517,7 @@ $color: #18AA8D;
         padding: ($size - 16 - 1)/2 0;
         padding-right: $size;
         font-weight: lighter;
-        font-family: 'Roboto';
+        font-family: Roboto, sans-serif;
         &:focus,
         &:valid {
             width: 100%;
@@ -672,4 +673,18 @@ $color: #18AA8D;
             vertical-align: middle;
         }
     }
+}
+
+
+.advance, .wallet{
+    float: right;
+    color: #53dd66;
+}
+.neg{
+    color: #ff5f5d;
+}
+.wallet{
+    position: absolute;
+    left: 40px;
+    top: 34px;
 }

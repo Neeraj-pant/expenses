@@ -75,6 +75,7 @@ li {
   color: red; }
 
 .navbar-header {
+  position: relative;
   text-align: center; }
   .navbar-header a {
     padding: 10px;
@@ -90,7 +91,7 @@ li {
 h1,
 input::-webkit-input-placeholder,
 button {
-  font-family: 'roboto', sans-serif;
+  font-family: Roboto, sans-serif;
   transition: all 0.3s ease-in-out; }
 
 form {
@@ -437,7 +438,7 @@ nav.navbar.navbar-default.navbar-static-top {
     padding: 4px 0;
     padding-right: 25px;
     font-weight: lighter;
-    font-family: 'Roboto'; }
+    font-family: Roboto, sans-serif; }
     .inputbox input:focus, .inputbox input:valid {
       width: 100%;
       transition-delay: 0.4s, 0s, 0.4s;
@@ -565,6 +566,18 @@ nav.navbar.navbar-default.navbar-static-top {
       color: #fff;
       padding: 0 20px;
       vertical-align: middle; }
+
+.advance, .wallet {
+  float: right;
+  color: #53dd66; }
+
+.neg {
+  color: #ff5f5d; }
+
+.wallet {
+  position: absolute;
+  left: 40px;
+  top: 34px; }
 
 div[id^=modal-container] {
   position: fixed;
@@ -1441,7 +1454,7 @@ section {
   box-sizing: border-box; }
 
 .snip1336 {
-  font-family: 'Roboto', Arial, sans-serif;
+  font-family: 'Roboto', sans-serif;
   position: relative;
   overflow: hidden;
   margin: 0;
@@ -1753,7 +1766,7 @@ section {
   height: 60px;
   background: #2a486b;
   background: linear-gradient(to right, #2a486b 0%, #507aa7 100%);
-  font-family: 'Open Sans', sans-serif; }
+  font-family: 'Roboto', sans-serif; }
 
 .cont_add_titulo_cont {
   position: relative;
@@ -1820,7 +1833,7 @@ section {
   margin-top: -10px; }
 
 .col_md_1_list > p {
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 14px;
   font-weight: 700; }
 
@@ -1833,13 +1846,13 @@ section {
 
 .col_md_2_list > h4 {
   text-align: left;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 14px;
   font-weight: 700; }
 
 .col_md_2_list > p {
   text-align: left;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 10px;
   font-weight: 700;
   color: #999;
@@ -1856,7 +1869,7 @@ section {
 
 .col_md_3_list > .cont_text_date {
   text-align: right;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 14px;
   font-weight: 700; }
 

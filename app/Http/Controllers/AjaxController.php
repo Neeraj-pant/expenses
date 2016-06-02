@@ -31,10 +31,8 @@ class AjaxController extends Controller
         $start_date = date('Y-m-d', strtotime($request->input('start_date')));
         $end_date = date('Y-m-d', strtotime($request->input('end_date')));
 		$id = $request->input('id');
-
-		$products = app('App\Http\Controllers\GroupController')->getGroupDetail($id, $start_date, $end_date);
-
-		return view('product.group_detail', compact('products'));
+		$products = app('App\Http\Controllers\GroupController')->groupDetail($id, $start_date, $end_date);
+		return $products;
 	}
 
 }

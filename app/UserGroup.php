@@ -18,4 +18,9 @@ class UserGroup extends Model
     {
     	return $this->belongsTo('App\User');
     }
+
+    public function isInGroup($id, $g_id){
+        $in_group = $this->where('group_id', $g_id)->where('user_id', $id)->get()->toArray();
+        return $in_group;
+    }
 }

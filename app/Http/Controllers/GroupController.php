@@ -15,6 +15,13 @@ use DB;
 class GroupController extends Controller
 {
 
+
+
+
+    /**
+     * Return User list to create group page
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function showGroups()
     {
         $users = User::where('status', 1)->get(['id', 'name']);
@@ -22,6 +29,15 @@ class GroupController extends Controller
     }
 
 
+
+
+
+
+    /**
+     * Saves group detail to user_group table and Group table
+     * @param Request $request
+     * @return $this|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function saveGroup(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -72,6 +88,14 @@ class GroupController extends Controller
     }
 
 
+
+
+
+
+    /**
+     * Return Group Data to views
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function groupList()
     {
         $groups = $this->getAllGroups();
@@ -79,6 +103,15 @@ class GroupController extends Controller
     }
 
 
+
+
+
+
+
+    /**
+     * Gets all Active Group ans checks for Delete Request for the group
+     * @return array
+     */
     public function getAllGroups()
     {
         $groups = Group::all()->where('status', 1)->toArray();
@@ -129,6 +162,16 @@ class GroupController extends Controller
         return $groups;
     }
 
+
+
+
+
+
+    /**
+     * Deletes or Set Delete request for Group
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function deleteGroup(Request $request)
     {
         $id = (int)$request->delete_group_id;
@@ -158,122 +201,145 @@ class GroupController extends Controller
     }
 
 
-    public function groupDetail($id)
+
+
+
+
+
+    /**
+     * Return Detail group transaction detail and user transaction detail to views
+     * @param $id
+     * @param null $start_date
+     * @param null $end_date
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function groupDetail($id, $start_date = null, $end_date = null)
     {
-        $products = $this->getGroupDetail($id);
-
-        return view('product.group_detail', compact('products'));
-    }
-
-
-    public function getGroupDetail($id, $start_date = null, $end_date = null)
-    {
-        $months = $this->groupDetailByMonths( $id, $start_date, $end_date );
-        dd($months);
-
-        $total = 0;
-        $count = 0;
-        $avg_all = 0;
-        $user_data = '';
-        $this_month = date('Y-m-01');
-
-        if($start_date == null){
-            $start_date = date('2015-01-01');
-        }
-        if($end_date == null){
-            $end_date = date('Y-m-d');
-        }
-
-        $members = UserGroup::where('group_id', $id)->count();
-
-        $products = Product::where('group_id', $id)->whereBetween(DB::raw('date(created_at)'), array($start_date, $end_date))->get()->groupBy('user_id')->toArray();
-
-        foreach ($products as $key => $pg)
+        if($start_date == null || $start_date < '2000-01-01')
         {
-            $user_total = 0;
-            $user_entries = 0;
-
-            foreach ($pg as $s_key => $product)
-            {
-                $total += $product['price'];
-                $count++;
-
-
-                $user_total += $product['price'];
-                $user_entries++;
-                $user_id = $product['user_id'];
-
-                if($product['created_at'] >= $this_month)
-                {
-                    $avg_all += $product['price'];
-                }
-            }
-            $user_data[$key]['total']   = $user_total;
-            $user_data[$key]['entries'] = $user_entries;
-            $user_data[$key]['user_id'] = $user_id;
-            $user_data[$key]['user_avg']= $user_total - ( $avg_all / $members );
-            $user_m_avg =  $avg_all / $members;
-
-            if( $user_data[$key]['user_avg'] >= $user_m_avg )
-            {
-                $user_data[$key]['advance'] = $user_data[$key]['user_avg'] - $user_m_avg;
-            }
-            else
-            {
-                $user_data[$key]['advance'] = $user_m_avg - $user_data[$key]['user_avg'];
-            }
-        }
-
-        $products['group_id']   =   $id;
-        $products['entries']    =   $count;
-        $products['total']      =   $total;
-        $products['month_avg']  =   $avg_all/$members;
-        $products['user_data']  =   $user_data;
-
-        return $products;
-    }
-
-
-    private function groupDetailByMonths( $id, $start_date, $end_date ){
-
-        if($start_date == null)
-        {
-            $start_date = date('');
+            $start_date = '';
         }
         if($end_date == null)
         {
             $end_date = date('Y-m-d');
         }
 
-//      DB::enableQueryLog();
+        $products = $this->groupDetailByMonths( $id, $start_date, $end_date );
 
-        $data = Product::where('group_id', $id)
+        $users_detail = $this->groupDetailByUsers( $id, $start_date, $end_date );
+
+
+        return view('product.group_detail', compact(['products', 'users_detail', 'id']));
+    }
+
+
+
+
+
+
+    /**
+     * Gets Transaction detail of Group
+     * @param $id integer group id
+     * @param $start_date
+     * @param $end_date
+     * @return mixed
+     */
+    private function groupDetailByMonths( $id, $start_date, $end_date )
+    {
+
+        //DB::enableQueryLog();
+
+        $members = UserGroup::where('group_id', $id)->count();
+
+        $products = DB::table( 'products' )
+                ->where('group_id', $id)
                 ->whereBetween('date', array($start_date, $end_date))
-                ->orderBy('date', 'ASC')
-                ->get()
-                ->groupBy('date')
-                ->groupBy('user_id')
-                ->toArray();
+                ->select( DB::raw('sum(price) as total'),
+                DB::raw('count(*) as entries'),
+                'date')
+                ->groupBy(DB::raw('month(date)'))
+                ->get();
 
-//      dd(DB::getQueryLog());
+        //dd(DB::getQueryLog());
 
-        foreach($data as $key => $products)
+        foreach($products as $key => $product)
         {
-            foreach($products as $sub_key => $product)
-            {
-
-            }
-
-            $months[$key]['total']      =   $m_total;
-            $months[$key]['avg_money']  =   $avg_money;
-            $months[$key]['date']       =   $m_date;
-            $months[$key]['entries']    =   $m_entries;
-
+            $product->month_avg = $product->total / $members;
         }
 
-        dd($data);
+        return $products;
+    }
 
-        return $months;
+
+
+
+
+
+
+    /**
+     * Gets Transaction detail of users in specific Group
+     * @param $id integer group id
+     * @param $start_date
+     * @param $end_date
+     * @return mixed
+     */
+    public function groupDetailByUsers( $id, $start_date, $end_date )
+    {
+        $members = UserGroup::where('group_id', $id)->get(['user_id'])->toArray();
+        $m_count = DB::table('products')->distinct()->select(DB::raw('month(date) as month'))->where('date', '<=', $end_date)->get();
+
+        foreach($members as $key => $member)
+        {
+            foreach($m_count as $s_key => $month)
+            {
+                $user_detail[$key][$s_key] = DB::table('products')
+                    ->where('group_id', $id)
+                    ->where('user_id', $member['user_id'])
+                    ->where(DB::raw('month(date)'), $month->month)
+                    ->select(DB::raw('sum(price) as total'),
+                        DB::raw('count(*) as entries'),
+                        'date', 'user_id')
+                    ->orderBy('date')
+                    ->get();
+
+                if($user_detail[$key][$s_key][0]->total == '')
+                {
+                    $user_detail[$key][$s_key][0]->total = 0;
+                }
+                if($user_detail[$key][$s_key][0]->date == '')
+                {
+                    $user_detail[$key][$s_key][0]->date = date('Y-' . $month->month . '-d');
+                }
+                if($user_detail[$key][$s_key][0]->user_id == '' || $user_detail[$key][$s_key][0]->user_id == null)
+                {
+                    $user_detail[$key][$s_key][0]->user_id = $member['user_id'];
+                }
+            }
+        }
+
+//        $user_detail= DB::table( 'products' )
+//            ->where('group_id', $id)
+//            ->whereBetween('date', array($start_date, $end_date))
+//            ->select( DB::raw('sum(price) as total'),
+//                DB::raw('count(*) as entries'),
+//                'date', 'user_id')
+//            ->groupBy('user_id')
+//            ->groupBy(DB::raw('month(date)'))
+//            ->orderBy('user_id')
+//            ->get();
+
+
+        foreach($user_detail as $key => $detail)
+        {;
+            foreach($detail as $s_key => $month_detail) {
+                $month = date('m', strtotime($month_detail[0]->date));
+                $month_detail[0]->month_total = Product::where(DB::raw('month(date)'), $month)->where('group_id',
+                    $id)->sum('price');
+                $month_detail[0]->month_avg = $month_detail[0]->month_total / count($members);
+                $month_detail[0]->advance = $month_detail[0]->total - $month_detail[0]->month_avg;
+            }
+        }
+        return $user_detail;
     }
 
 }
