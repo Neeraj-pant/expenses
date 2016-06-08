@@ -72,6 +72,7 @@ table tbody tr:nth-child(2n + 1) {
 .table > thead > tr,
 .table > tbody > tr,
 .table > tfoot > tr {
+  -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
 .table > thead > tr > th,
@@ -83,6 +84,7 @@ table tbody tr:nth-child(2n + 1) {
   text-align: left;
   padding: 1rem;
   border-top: 0;
+  -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
 .table > thead > tr > th {

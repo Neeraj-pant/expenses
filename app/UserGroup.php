@@ -23,4 +23,9 @@ class UserGroup extends Model
         $in_group = $this->where('group_id', $g_id)->where('user_id', $id)->get()->toArray();
         return $in_group;
     }
+
+    public function members( $id ){
+        $members = $this->where('group_id', $id )->count();
+        return $members;
+    }
 }

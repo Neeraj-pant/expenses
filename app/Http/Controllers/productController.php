@@ -52,6 +52,9 @@ class productController extends Controller
         else{
             flash_alert('Failed to Save product', 'danger');
         }
+        if( ! empty($request->input('product_url')) ){
+        	return redirect('product/list/'.$request->input('product_url'));
+        }
         return redirect('product/home');
     }
 

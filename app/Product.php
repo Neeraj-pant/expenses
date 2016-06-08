@@ -25,15 +25,14 @@ class Product extends Model
         return $all;
     }
 
-    public function wallet( $id ){
+    public function wallet( $id, $members ){
         $total = $this->where('group_id', $id)->sum('price');
-
+        $total_avg = $total / $members;
         $user_total = $this->where('group_id', $id)
             ->where('user_id', Auth::user()->id)
             ->sum('price');
 
-        $wallet = $user_total - $total;
-
+        $wallet = $user_total - $total_avg;
         return $wallet;
     }
 
