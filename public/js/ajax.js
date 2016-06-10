@@ -35,46 +35,59 @@ $(".product-entry").click(function(){
 
 
 
+
+
+
+
 //save and continue for make entry
 
-// $("#add-product-ajax").click(function(){
-// 	test = 1;
-// 	$(".errors").text('');
-// 	$(".errors").hide();
-// 	$(".success").hide();
-// 	$( "#save-product-form input" ).not("input[type=hidden]").each(function( index ) {
-// 	  if($(this).val() == '' ){
-// 	  	name = $(this).attr('name');
-// 	  	$(".errors").append("The "+name+" Field is Required<br>");
-// 	  	test = 0;
-// 	  }
-// 	});
-// 	if(test == 1){
-// 		form = $("#save-product-form").serialize();
-// 		$.ajax({
-// 			method : 'post',
-// 			url: 'ajax-save',
-// 			data: form
-// 		}).done(function(data){
-// 			if(data == 1){
-// 				$(".success").show();
-// 				$(".success").text("product Saved Succfully");
-// 				$("#save-product-form input").not("#datepicker").val('');
-// 			}
-// 			else{
-// 				$(".errors").text('');
-// 				$(".errors").show();
-// 				$.each(data, function(index, val) {
-// 					$(".errors").append(val+'<br>');
-// 				});
-// 			}
-// 			$("form")[0].reset();
-// 		});
-// 	}
-// 	else{
-// 		$(".errors").show();
-// 	}
-// });
+$("#add-product-ajax").click(function(){
+	test = 1;
+	$(".errors").text('');
+	$(".saving").show();
+	$(".errors").hide();
+	$(".success").hide();
+	$( "#save-product-form input" ).not("input[type=hidden]").each(function( index ) {
+	  if($(this).val() == '' ){
+	  	name = $(this).attr('name');
+	  	$(".errors").append("The "+name+" Field is Required<br>");
+	  	test = 0;
+	  }
+	});
+	if(test == 1){
+		$(".saving").show();
+		form = $("#save-product-form").serialize();
+		$.ajax({
+			method : 'post',
+			url: 'ajax-save',
+			data: form
+		}).done(function(data){
+			if(data == 1){
+				$(".success").show();
+				$(".success").text("product Saved Succfully");
+				$("#save-product-form").find('input[name=name]').val('');
+				$("#save-product-form").find('input[name=price]').val('');
+			}
+			else{
+				$(".errors").text('');
+				$(".errors").show();
+				$.each(data, function(index, val) {
+					$(".errors").append(val+'<br>');
+				});
+			}
+			$("form")[0].reset();
+
+			setTimeout($(".saving").hide(), 2000);
+
+		});
+	}
+	else{
+		$(".errors").show();
+	}
+});
+
+
+
 
 
 

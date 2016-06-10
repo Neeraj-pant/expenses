@@ -67,6 +67,7 @@ class productController extends Controller
         }
 
         $res = $this->saveProductDate($request);
+
         return 1;
     }
 

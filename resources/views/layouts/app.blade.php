@@ -98,7 +98,11 @@
 
     @yield('content')
 
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+	<script src="https://code.highcharts.com/modules/data.js"></script>
+	<script src="https://code.highcharts.com/modules/exporting.js"></script>
+	<script src="{{ url('js/gray.js') }}"></script>
+
     <script src="{{ url('js/ajax.js') }}" type="text/javascript" charset="utf-8" async defer></script>
     <script src="{{ url('js/element.js') }}" type="text/javascript" charset="utf-8" async defer></script>
     <script src="{{ url('js/modal.js') }}" type="text/javascript" charset="utf-8" async defer></script>
@@ -106,9 +110,7 @@
     <script src="{{ url('js/custom.js') }}" type="text/javascript" charset="utf-8" async defer></script>
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script>
-	// Using CommonJS
-	var Chart = require('https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js');
-	var myChart = new Chart({});
+
 </script>
 </body>
 </html>
