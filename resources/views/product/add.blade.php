@@ -53,7 +53,7 @@
 	                    <input type="number" placeholder="Price" min="0" name="price" required="">
 	                </div>
 	                <div class="data-group">
-	                    <input type='text' name="date" placeholder="Date" class="datepicker" id='datepicker' min="0" required="" />
+	                    <input type='text' name="date" placeholder="Date" value="{{ date('d/m/Y') }}" class="datepicker" id='datepicker' min="0" required="" />
 	                    <span class="input-group-addon">
 	                        <span class="glyphicon glyphicon-calendar"></span>
 	                    </span>

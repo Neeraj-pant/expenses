@@ -1,117 +1,57 @@
 @extends('layouts.app')
 
 @section('content')
+<?php $user = new App\User(); ?>
 
 <script type="text/javascript">
-$(function () {
+	$(function () {
+	    $('#container').highcharts({
+	        title: {
+	            text: 'Monthly Average of Funds',
+	            x: -20 //center
+	        },
+	        xAxis: {
+	            categories: [
+	            	@foreach($products as $product)
+	            		"{{ date('M', strtotime($product->date)) }}",
+	            	@endforeach
+	            ]
+	        },
+	        yAxis: {
+	            title: {
+	                text: 'Money'
+	            },
+	            plotLines: [{
+	                value: 0,
+	                width: 1,
+	                color: '#808080'
+	            }]
+	        },
+	        tooltip: {
+	            valueSuffix: "{{ CURRENCY }}"
+	        },
+	        legend: {
+	            layout: 'vertical',
+	            align: 'right',
+	            verticalAlign: 'middle',
+	            borderWidth: 0
+	        },
+	        series: [
+	     		@foreach($users_detail as $user_data)
+		         	{
+		         		name: "{{ $user->getName($user_data[0][0]->user_id) }}",
+		         		data: [
+		         			@foreach ($user_data as $element)
+		         				{{ $element[0]->total }},
+		         			@endforeach
+		         		]
+		         	},
+	        	@endforeach
+	        ]
+	    });
+	});
+</script>
 
-    // Get the CSV and create the chart
-    $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=analytics.csv&callback=?', function (csv) {
-
-        $('#container').highcharts({
-
-            data: {
-                csv: csv
-            },
-
-            title: {
-                text: 'Daily visits at www.highcharts.com'
-            },
-
-            subtitle: {
-                text: 'Source: Google Analytics'
-            },
-
-            xAxis: {
-                tickInterval: 7 * 24 * 3600 * 1000, // one week
-                tickWidth: 0,
-                gridLineWidth: 1,
-                labels: {
-                    align: 'left',
-                    x: 3,
-                    y: -3
-                }
-            },
-
-            yAxis: [{ // left y axis
-                title: {
-                    text: null
-                },
-                labels: {
-                    align: 'left',
-                    x: 3,
-                    y: 16,
-                    format: '{value:.,0f}'
-                },
-                showFirstLabel: false
-            }, { // right y axis
-                linkedTo: 0,
-                gridLineWidth: 0,
-                opposite: true,
-                title: {
-                    text: null
-                },
-                labels: {
-                    align: 'right',
-                    x: -3,
-                    y: 16,
-                    format: '{value:.,0f}'
-                },
-                showFirstLabel: false
-            }],
-
-            legend: {
-                align: 'left',
-                verticalAlign: 'top',
-                y: 20,
-                floating: true,
-                borderWidth: 0
-            },
-
-            tooltip: {
-                shared: true,
-                crosshairs: true
-            },
-
-            plotOptions: {
-                series: {
-                    cursor: 'pointer',
-                    point: {
-                        events: {
-                            click: function (e) {
-                                hs.htmlExpand(null, {
-                                    pageOrigin: {
-                                        x: e.pageX || e.clientX,
-                                        y: e.pageY || e.clientY
-                                    },
-                                    headingText: this.series.name,
-                                    maincontentText: Highcharts.dateFormat('%A, %b %e, %Y', this.x) + ':<br/> ' +
-                                        this.y + ' visits',
-                                    width: 200
-                                });
-                            }
-                        }
-                    },
-                    marker: {
-                        lineWidth: 1
-                    }
-                }
-            },
-
-            series: [{
-                name: 'All visits',
-                lineWidth: 4,
-                marker: {
-                    radius: 4
-                }
-            }, {
-                name: 'New visitors'
-            }]
-        });
-    });
-
-});
-		</script>
     <?php $u_group = new App\UserGroup();
         $in_group = $u_group->isInGroup( Auth::user()->id, $id );
         $members = $u_group->members( $id );
@@ -140,8 +80,8 @@ $(function () {
     <h1 class="bg-blue">Groups Detail</h1>
 
     <button id="graph">Graph View</button>
-    <button id="stat">User Stat</button>
-    <button id="Properties">Properties</button>
+    <button id="table">Table View</button>
+    <!-- <button id="stats">Stats</button> -->
 
     <div id="table-view">
 	    <div class="tables">
@@ -172,7 +112,6 @@ $(function () {
 	    <div class="grid-wrapper">
 	        @foreach($users_detail as $user_data)
 	            <div class="grid-6">
-	                <?php $user = new App\User(); ?>
 	                <h2 class="sub-head"><span>{{ $user->getName($user_data[0][0]->user_id) }}</span></h2>
 	                <div class="tables">
 	                    <div class=" table-responsive-vertical shadow-z-1">

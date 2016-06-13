@@ -225,9 +225,8 @@ class GroupController extends Controller
         }
 
         $products = $this->groupDetailByMonths( $id, $start_date, $end_date );
-
+        //dd($products);
         $users_detail = $this->groupDetailByUsers( $id, $start_date, $end_date );
-
 
         return view('product.group_detail', compact(['products', 'users_detail', 'id']));
     }
@@ -286,7 +285,7 @@ class GroupController extends Controller
     public function groupDetailByUsers( $id, $start_date, $end_date )
     {
         $members = UserGroup::where('group_id', $id)->get(['user_id'])->toArray();
-        $m_count = DB::table('products')->distinct()->select(DB::raw('month(date) as month'))->where('date', '<=', $end_date)->get();
+        $m_count = DB::table('products')->distinct()->select(DB::raw('month(date) as month'))->where('date', '<=', $end_date)->where('group_id', $id)->orderBy('date')->get();
 
         foreach($members as $key => $member)
         {
@@ -343,4 +342,3 @@ class GroupController extends Controller
     }
 
 }
-

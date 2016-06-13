@@ -74,13 +74,13 @@ class productController extends Controller
 
     private function saveProductDate($request)
     {
-        $date = str_replace('/', '-', $request->input('date'));
+        $date = date('Y-m-d', strtotime($request->input('date')));
         $prd = Product::create([
             'user_id'   =>  Auth::user()->id,
             'group_id'  =>  $request->input('product_group_id'),
             'name'      =>  $request->input('name'),
             'price'     =>  $request->input('price'),
-            'date'      =>  date('Y-m-d', strtotime($date))
+            'date'      =>  $date,
         ]);
         return $prd;
     }

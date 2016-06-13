@@ -633,6 +633,11 @@ nav.navbar.navbar-default.navbar-static-top {
     top: 40%;
     position: relative; }
 
+#graph-view {
+  margin-top: 40px; }
+  #graph-view .highcharts-container {
+    width: 100% !important; }
+
 div[id^=modal-container] {
   position: fixed;
   display: table;

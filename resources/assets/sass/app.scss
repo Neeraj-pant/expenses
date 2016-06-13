@@ -712,3 +712,12 @@ $color: #18AA8D;
     	position: relative;
     }
 }
+
+#graph-view{
+	margin-top: 40px;
+	.highcharts-container{
+		width: 100% !important;
+	}
+}
+
+

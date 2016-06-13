@@ -19,13 +19,20 @@ class UserGroup extends Model
     	return $this->belongsTo('App\User');
     }
 
-    public function isInGroup($id, $g_id){
+    public function isInGroup($id, $g_id)
+    {
         $in_group = $this->where('group_id', $g_id)->where('user_id', $id)->get()->toArray();
         return $in_group;
     }
 
-    public function members( $id ){
-        $members = $this->where('group_id', $id )->count();
-        return $members;
+    public function members( $id, $val = FALSE )
+    {
+        $members = $this->where('group_id', $id );
+        if($val == FALSE){
+        	return $members->count();
+        }else{
+        	$members = $this->where('group_id', $id )->get();
+        	return $members;
+        }
     }
 }

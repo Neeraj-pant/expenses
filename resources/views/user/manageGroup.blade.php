@@ -39,6 +39,7 @@
                                 <div class="post-content">
                                     <span class="post-title">{{ $group['name'] }}</span>
                                     <p class="post-body">{{ $group['members'] }}</p>
+                                    <a href="group-detail/{{ $group['id'] }}" class="report btn btn btn-orange btn-border-rev"><i class="fa fa-list"></i>&nbsp; Get Detail</a>
                                      @if($group['active_user_delete'] == 0 || $group['active_user_delete'] === false)
                                         @if($group['other_user_delete'] >= 1)
                                             <span class="text-info">{{ $group['other_user_delete'] }} Delete Request for this group</span>
@@ -75,7 +76,7 @@
                             @if(Auth::check())
                                 <td data-title="sctions">
                                     <!-- <a href="#" class="edit-group"><i class="glyphicon glyphicon-edit"></i></a>&nbsp; -->
-                                    <a href="group-detail/{{ $group['id'] }}" class="report btn btn btn-orange btn-border-rev"><i class="fa fa-paper"></i>Get Detail</a>
+                                    <a href="group-detail/{{ $group['id'] }}" class="report btn btn btn-orange btn-border-rev"><i class="fa fa-list"></i> &nbsp; Get Detail</a>
                                     @if($group['active_user_delete'] == 0 || $group['active_user_delete'] === false)
                                         <a href="#" class="delete-group modal-open" data-id="{{ $group['id'] }}"><i class="fa fa-trash"></i></a>
                                         @if($group['other_user_delete'] >= 1)
@@ -120,7 +121,7 @@
                     <input type="hidden" class="delete-group-id" name="delete_group_id" value="">
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" id="delete-user" class="btn btn-navy btn-fill-vert-o">Proceed to Delete</button>
+                    <button type="submit" id="delete-user" class="btn btn-navy btn-fill-vert-o">Delete</button>
                     <button type="button" class="close-modal btn btn-purple btn-fill-vert" data-dismiss="modal">Cancel</button>
                 </div>
             </form> 
