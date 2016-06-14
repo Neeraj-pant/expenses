@@ -286,6 +286,7 @@ class GroupController extends Controller
     {
         $members = UserGroup::where('group_id', $id)->get(['user_id'])->toArray();
         $m_count = DB::table('products')->distinct()->select(DB::raw('month(date) as month'))->where('date', '<=', $end_date)->where('group_id', $id)->orderBy('date')->get();
+        $user_detail = array();
 
         foreach($members as $key => $member)
         {
@@ -329,7 +330,7 @@ class GroupController extends Controller
 
 
         foreach($user_detail as $key => $detail)
-        {;
+        {
             foreach($detail as $s_key => $month_detail) {
                 $month = date('m', strtotime($month_detail[0]->date));
                 $month_detail[0]->month_total = Product::where(DB::raw('month(date)'), $month)->where('group_id',
