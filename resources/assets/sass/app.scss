@@ -13,7 +13,7 @@ body {
     margin: 0;
     padding: 0;
 }
-.background{
+.background-main{
     background-image: url(http://theartmad.com/wp-content/uploads/Dark-Grey-Texture-Wallpaper-5.jpg);
     background-size: 100% 100%;
     background-attachment: fixed;
@@ -720,4 +720,15 @@ $color: #18AA8D;
 	}
 }
 
+
+
+// menu at top
+
+.navbar-static-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    width: 100%;
+}
 
