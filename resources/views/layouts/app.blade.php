@@ -31,20 +31,8 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js"></script>
 
-    <script>
-        $(function() {
-            $( ".datepicker" ).datepicker();
-        });
-    </script>
-    <style>
-        body {
-            font-family: 'Lato';
-        }
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
-        .fa-btn {
-            margin-right: 6px;
-        }
-    </style>
 </head>
 <body id="app-layout" class="background-main">
     <nav class="navbar navbar-default navbar-static-top">
@@ -102,16 +90,20 @@
 
 	<script src="https://code.highcharts.com/highcharts.js"></script>
 	<script src="https://code.highcharts.com/modules/exporting.js"></script>
-	<script src="{{ url('js/gray.js') }}"></script>
+    <script src="{{ url('js/gray.js') }}"></script>
+	<script src="{{ url('js/popup.js') }}"></script>
     <script src="{{ url('js/ajax.js') }}" type="text/javascript" charset="utf-8" async defer></script>
     <script src="{{ url('js/element.js') }}" type="text/javascript" charset="utf-8" async defer></script>
     <script src="{{ url('js/modal.js') }}" type="text/javascript" charset="utf-8" async defer></script>
     <script src="{{ url('js/panel.js') }}" type="text/javascript" charset="utf-8" async defer></script>
     <script src="{{ url('js/custom.js') }}" type="text/javascript" charset="utf-8" async defer></script>
 	<script src="{{ url('js/home.js') }}"></script>
-    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-    <script>
 
-</script>
+    <script>
+        $(function() {
+            $( "#datepicker" ).datepicker();
+        });
+    </script>
+
 </body>
 </html>

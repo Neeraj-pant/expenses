@@ -12,6 +12,6 @@ var elixir = require('laravel-elixir');
  */
 
 elixir(function(mix) {
-    mix.sass(['app.scss', 'modal.scss', 'buttons.scss', 'home.scss', 'cards.scss', 'panel.scss', 'list.scss']);
+    mix.sass(['app.scss', 'modal.scss', 'buttons.scss', 'home.scss', 'cards.scss', 'panel.scss', 'list.scss', 'popup.scss']);
     mix.less('tables.less');
 });
