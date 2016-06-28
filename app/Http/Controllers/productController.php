@@ -14,6 +14,11 @@ use DB;
 class productController extends Controller
 {
 
+
+    /**
+     * Gets all product or user group entries
+     * @return mix product entries to view
+     */
 	public function allProducts()
 	{
 		$groups = app('App\Http\Controllers\groupController')->getAllGroups();
@@ -37,6 +42,10 @@ class productController extends Controller
 
 
 
+    /**
+     * Save product entry
+     * @param Request $request
+     */
     public function saveProduct(Request $request)
     {
         $validator = $this->validateFields($request);
@@ -59,6 +68,12 @@ class productController extends Controller
     }
 
 
+
+    /**
+     * Save product in ajax request
+     * @param Request $request
+     * @return integer 1 if success
+     */
     public function saveProductAjax(Request $request)
     {
         $validator = $this->validateFields($request);
@@ -72,6 +87,13 @@ class productController extends Controller
     }
 
 
+
+
+    /**
+     * Savve product
+     * @param object $request
+     * @return mix|array
+     */
     private function saveProductDate($request)
     {
         $date = date('Y-m-d', strtotime($request->input('date')));
@@ -86,6 +108,12 @@ class productController extends Controller
     }
 
 
+
+
+    /**
+     * Validates product entry fields
+     * @param Request $request
+     */
     protected function validateFields($request){
     	return Validator::make($request->all(), [
     		'name' 		=>	'required|max:255',
@@ -95,19 +123,28 @@ class productController extends Controller
     }
 
 
+
+    /**
+     * Gets all product
+     * @param integer $id id of group
+     * @return array|mix
+     */
     public function listProduct($id)
     {
-        // DB::enableQueryLog();
-        // $users = User::find(2)->userData;
-        // dd(DB::getQueryLog());
-        // dd($users);
-
         //get group user and get pass data in view for group users
         $users = DB::table('users')->join('user_groups', 'users.id', '=', 'user_groups.user_id')->where('user_groups.group_id', '=', $id)->select('users.id', 'users.name', 'user_groups.group_id')->get();
 
         return view('product.list', compact(['users']));
     }
 
+
+
+
+    /**
+     * Checks if a user is in particulatr group
+     * @param integer $group_id group id
+     * @return boolian if user found return true else false
+     */
     public function isUserInGroup($group_id){
         $isUser = UserGroup::where(['user_id' => Auth::user()->id, 'group_id' => $group_id])->count();
         if(!empty($isUser) || $isUser >= 1){
@@ -117,6 +154,11 @@ class productController extends Controller
     }
 
 
+
+    /**
+     * delete product
+     * @param integer $id product id
+     */
     public function deleteProduct($id){
         $del = Product::find($id)->delete();
         if($del){

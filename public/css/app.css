@@ -639,7 +639,7 @@ nav.navbar.navbar-default.navbar-static-top {
     width: 100% !important; }
 
 .navbar-static-top {
-  position: absolute;
+  position: relative;
   top: 0;
   left: 0;
   z-index: 99;
@@ -1897,8 +1897,7 @@ section {
   .btn-fill-horz.btn-red:hover {
     border-color: #e74c3c; }
 
-html, body {
-  overflow: hidden; }
+
 
 .background {
   background-size: cover;
