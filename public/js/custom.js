@@ -36,4 +36,28 @@ $(document).ready(function(){
 		//$("#table-view").slideDown('500');
 	});
 
+
+
+	// BLUR BACKGROUND WHEN POPUP OPENS
+	$(".popup-btn").click(function() {
+		if( ! $("#entry").hasClass('active')){
+			$(".container").css({
+				'-webkit-filter': 'blur(5px)',
+    			'filter': 'blur(5px)'
+			});
+		}
+	});
+	$(".popups-cont__overlay").click(function() {
+		removeBlur();
+	});
+	$(".popup__close").click(function() {
+		removeBlur();
+	});
+
+	function removeBlur(){
+		$(".container").css({
+			'-webkit-filter': 'blur(0)',
+			'filter': 'blur(0)'
+		});
+	}
 });

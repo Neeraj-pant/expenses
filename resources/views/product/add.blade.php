@@ -34,6 +34,7 @@
             </div>
         @endforeach
     </div>
+</div>
 
 
 <div class="popups-cont modal-background" id="entry" >
