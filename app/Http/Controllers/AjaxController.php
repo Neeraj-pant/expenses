@@ -3,13 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
-
 use App\User;
 
 class AjaxController extends Controller
 {
+
+
+
+    /**
+     * Gets user data to displat in midal
+     * @param integer $id
+     * @return mix $detail user data
+     */
 	public function getUserData($id)
 	{
 		$user = User::find($id);
@@ -18,6 +24,11 @@ class AjaxController extends Controller
 	}
 
 
+
+    /**
+     * Gets all active users
+     * @return mix $user user list
+     */
 	public function getUsers()
 	{
 		$user = User::where('status', '1')->get();
@@ -26,6 +37,11 @@ class AjaxController extends Controller
 
 
 
+    /**
+     * Gets group from specific data
+     * @param Request $request
+     * @return mix $product
+     */
     public function filterGroup(Request $request)
     {
         $start_date = date('Y-m-d', strtotime($request->input('start_date')));

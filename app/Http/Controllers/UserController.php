@@ -12,6 +12,12 @@ use DB;
 
 class UserController extends Controller
 {
+
+
+    /**
+     * Dave user in user table, user_refreance table
+     * @param Request $request
+     */
     public function saveUser(Request $request){
     	$validator = $this->validateFields($request);
     	if($validator->fails()){
@@ -43,6 +49,10 @@ class UserController extends Controller
 
 
 
+    /**
+     * Validate user detail inpute for register user
+     * @param Request $request
+     */
     protected function validateFields($request){
     	return Validator::make($request->all(), [
     		'name' 		=>	'required|max:255',
@@ -53,6 +63,11 @@ class UserController extends Controller
     }
 
 
+
+    /**
+     * Gets all Users
+     * @return mix|array user list
+     */
     public function userList(){
         $users = User::all();
         return view('user.userList',compact('users'));
@@ -60,6 +75,10 @@ class UserController extends Controller
 
 
     
+    /**
+     * Updates user Details
+     * @param Request $request
+     */
     public function updateUserDetail(Request $request){
         $status = 0;
         if($request->exists('status')){
@@ -83,6 +102,10 @@ class UserController extends Controller
 
     
 
+    /**
+     * Deletes user
+     * @param Request $requestd
+     */
     public function deleteUser(Request $request){
         $id = $request->input('delete_id');
         DB::beginTransaction();

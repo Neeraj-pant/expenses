@@ -17,7 +17,6 @@ class GroupController extends Controller
 
 
 
-
     /**
      * Return User list to create group page
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -27,9 +26,6 @@ class GroupController extends Controller
         $users = User::where('status', 1)->get(['id', 'name']);
         return view('user.createGroup', compact('users'));
     }
-
-
-
 
 
 
@@ -50,7 +46,7 @@ class GroupController extends Controller
 
         DB::beginTransaction();
         $group = Group::create([
-            'name' => $request->input('name'),
+            'name' => trim($request->input('name')),
             'status' => '1',
         ]);
 
@@ -89,9 +85,6 @@ class GroupController extends Controller
 
 
 
-
-
-
     /**
      * Return Group Data to views
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -101,10 +94,6 @@ class GroupController extends Controller
         $groups = $this->getAllGroups();
         return view('user.manageGroup', compact('groups'));
     }
-
-
-
-
 
 
 
@@ -164,9 +153,6 @@ class GroupController extends Controller
 
 
 
-
-
-
     /**
      * Deletes or Set Delete request for Group
      * @param Request $request
@@ -202,10 +188,6 @@ class GroupController extends Controller
 
 
 
-
-
-
-
     /**
      * Return Detail group transaction detail and user transaction detail to views
      * @param $id
@@ -233,9 +215,6 @@ class GroupController extends Controller
 
 
 
-
-
-
     /**
      * Gets Transaction detail of Group
      * @param $id integer group id
@@ -245,9 +224,7 @@ class GroupController extends Controller
      */
     private function groupDetailByMonths( $id, $start_date, $end_date )
     {
-
         //DB::enableQueryLog();
-
         $members = UserGroup::where('group_id', $id)->count();
 
         $products = DB::table( 'products' )
@@ -258,9 +235,7 @@ class GroupController extends Controller
                 'date')
                 ->groupBy(DB::raw('month(date)'))
                 ->get();
-
         //dd(DB::getQueryLog());
-
         foreach($products as $key => $product)
         {
             $product->month_avg = $product->total / $members;
@@ -268,10 +243,6 @@ class GroupController extends Controller
 
         return $products;
     }
-
-
-
-
 
 
 
@@ -317,17 +288,16 @@ class GroupController extends Controller
             }
         }
 
-//        $user_detail= DB::table( 'products' )
-//            ->where('group_id', $id)
-//            ->whereBetween('date', array($start_date, $end_date))
-//            ->select( DB::raw('sum(price) as total'),
-//                DB::raw('count(*) as entries'),
-//                'date', 'user_id')
-//            ->groupBy('user_id')
-//            ->groupBy(DB::raw('month(date)'))
-//            ->orderBy('user_id')
-//            ->get();
-
+        /*$user_detail= DB::table( 'products' )
+            ->where('group_id', $id)
+            ->whereBetween('date', array($start_date, $end_date))
+            ->select( DB::raw('sum(price) as total'),
+                DB::raw('count(*) as entries'),
+                'date', 'user_id')
+            ->groupBy('user_id')
+            ->groupBy(DB::raw('month(date)'))
+            ->orderBy('user_id')
+            ->get();*/
 
         foreach($user_detail as $key => $detail)
         {

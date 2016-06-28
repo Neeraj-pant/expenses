@@ -7,20 +7,20 @@
         <div class="containear">
 		  <section class="background">
 		    <div class="content-wrapper">
-		      <p class="content-title">Full Page Parallax Effect</p>
-		      <p class="content-subtitle">Scroll down and up to see the effect!</p>
+		      <p class="content-title">Manage Groups.</p>
+		      <p class="content-subtitle">Create, edit and delete Group!</p>
 		    </div>
 		  </section>
 		  <section class="background">
 		    <div class="content-wrapper">
-		      <p class="content-title">Cras lacinia non eros nec semper.</p>
-		      <p class="content-subtitle">Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Cras ut massa mattis nibh semper pretium.</p>
+		      <p class="content-title">Somthing special in payment.</p>
+		      <p class="content-subtitle">add an see the paymeny detail.</p>
 		    </div>
 		  </section>
 		  <section class="background">
 		    <div class="content-wrapper">
-		      <p class="content-title">Etiam consequat lectus.</p>
-		      <p class="content-subtitle">Nullam tristique urna sed tellus ornare congue. Etiam vitae erat at nibh aliquam dapibus.</p>
+		      <p class="content-title">Manage User.</p>
+		      <p class="content-subtitle">Check every users activity.</p>
 		    </div>
 		  </section>
 		</div>
