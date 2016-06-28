@@ -36,4 +36,16 @@ class Product extends Model
         return $wallet;
     }
 
+
+
+    /**
+    * Get all transaction of user
+    **/
+    public function userTransaction(){
+        $res = DB::select(DB::raw("SELECT sum(price) FROM $this->table WHERE month(date) IN (SELECT month(date) FROM $this->table GROUP BY month(date)) AND user_id = 4 GROUP by year(date)"));
+        dd($res);
+        $d = $this->groupBy(DB::raw('year(date)'));
+        return DB::raw($d->groupBy(DB::raw('month(date)'))->get([DB::raw('sum(price) as total')]));
+    }
+
 }

@@ -170,4 +170,10 @@ class productController extends Controller
         return back();
     }
 
+
+    public function getUserTransaction(){
+        $product = new Product();
+        $trans = $product->userTransaction();
+        dd($trans);
+    }
 }

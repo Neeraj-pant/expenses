@@ -19,7 +19,7 @@ Route::get('test', 'Controller@test');
 
 Route::auth();
 
-Route::get('/home', 'HomeController@index');
+Route::get('/home', 'ProductController@getUserTransaction');
 
 Route::post('save-user', 'UserController@saveUser');
 

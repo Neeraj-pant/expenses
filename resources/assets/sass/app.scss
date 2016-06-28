@@ -397,6 +397,9 @@ button {
     width: 33.3333%;
     padding: 20px;
     box-sizing: border-box;
+    @media (max-width: 768px){
+        width: 100%;
+    }
 }
 .total{
     float: right;
@@ -732,3 +735,34 @@ $color: #18AA8D;
     width: 100%;
 }
 
+.modal-footer{
+    button{
+        width: 190px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+}
+
+#save-product-form{
+    margin-top: 0;
+    padding-bottom: 20px;
+}
+
+div#ui-datepicker-div{
+    z-index: 9999 !important;
+}
+
+.btn-in{
+    width: 200px !important;
+    margin-left: 20px !important;
+}
+
+  .popups-cont__overlay {
+      background-color: rgba(0, 0, 0, 0.65);
+  }
+  .s--active {
+    border: 2px solid #fff;
+}
+.popup__content{
+    padding-bottom: 0 !important;
+}

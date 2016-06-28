@@ -52,6 +52,7 @@ $("#add-product-ajax").click(function(){
 	  	name = $(this).attr('name');
 	  	$(".errors").append("The "+name+" Field is Required<br>");
 	  	test = 0;
+	  	$(".saving").hide();
 	  }
 	});
 	if(test == 1){
@@ -79,6 +80,9 @@ $("#add-product-ajax").click(function(){
 
 			setTimeout($(".saving").hide(), 2000);
 
+		}).fail(function() { 
+			alert('request failed');
+			setTimeout($(".saving").hide(), 2000);
 		});
 	}
 	else{

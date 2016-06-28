@@ -38,23 +38,6 @@
                 }
             }
         });
-        if ($(window).width() < 800) {
-            hammertime = $('.panel-element .element-content').hammer();
-            return hammertime.on('swipeleft swiperight tap', function (e) {
-                var $parent;
-                $parent = $(e.currentTarget).parent();
-                if (e.type === 'tap') {
-                    return toggleElement($parent);
-                } else if (e.type === 'swipeleft') {
-                    if (!$parent.hasClass('panel-element-open')) {
-                        return toggleElement($parent, 'open');
-                    }
-                } else {
-                    if ($parent.hasClass('panel-element-open')) {
-                        return toggleElement($parent, 'close');
-                    }
-                }
-            });
-        }
+
     });
 }.call(this));

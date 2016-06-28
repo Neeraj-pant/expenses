@@ -3,6 +3,9 @@
   padding: 20px;
   float: left;
   box-sizing: border-box;
+  @media (max-width: 768px){
+    width: 50%;
+  }
 }
 .snip1336 {
   font-family: 'Roboto', sans-serif;
